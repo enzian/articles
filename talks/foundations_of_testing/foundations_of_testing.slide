@@ -1,0 +1,52 @@
+Testing
+Foundations of Testing
+15:04 2 Jan 2006
+Tags: foo, bar, baz
+
+Michael Ingold
+Software Engineer, Leuchter AG
+michael.ingold@leuchterag.ch
+http://michaelingold.ch/
+@michaelingold
+
+
+* Agenda
+
+We'll go back and forth between inputs and exercises!
+
+- Input: Testing Foundations
+- Ex: Setting up basic tests, test execution
+- Input: Mocking & Faking
+- Ex: Mocking and Faking
+- Input: Integration Testing
+- Ex: Integration Testing
+
+* Why we test ...
+- ... because we're engineers, not script-kiddies!
+- to build confidence in our code
+- to validate our work
+- to gain speed for changes and refactorings
+- to be open to change
+- to have the best documentation that is always up to date
+- break down complexity
+- prevent or crack down on technical debt
+- reduce or deprecate our manual testing effort
+
+- KEEP THE COST OF CHANGE LOW!!!
+
+* Cost of Change
+.image res/images/responsivness_of_change.png _ 700
+
+* Right tools for the right abstraction:
+.image res/images/testing_pyramid_detailed.png _ 700
+
+* Unit-Testing
+
+* Design for testability
+- Simplicity
+Objects have to be easily creatable. Otherwise, easy and fast testing is not
+possible. Pass dependencies and configuration/parameters into the constructor.
+
+- Abstraction
+Use abstraction layers at system boundaries (database, file system, web
+services, ...) that simplify unit testing by enabling the usage of fakes.
