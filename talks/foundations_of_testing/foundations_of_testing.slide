@@ -48,5 +48,28 @@ Objects have to be easily creatable. Otherwise, easy and fast testing is not
 possible. Pass dependencies and configuration/parameters into the constructor.
 
 - Abstraction
-Use abstraction layers at system boundaries (database, file system, web
-services, ...) that simplify unit testing by enabling the usage of fakes.
+Use abstraction layers at system boundaries (database, file system, webservices, ...) that simplify unit testing by enabling the usage of fakes.
+
+* Structure of a Unit Test (2)
+- Arrange – Act – Assert
+Structure the tests always by AAA. Never mix these three blocks.
+
+- Test Assemblies
+Create a test assembly for each production assembly and name it as the production assembly + “.Test”/”.Facts”/… .
+
+- Test Namespace
+Put the tests in the same namespace as their associated testee.
+
+- Unit Test Methods Show Whole Truth
+Unit test methods show all parts needed for the test. Do not use SetUp method or base classes to perform actions on testee or dependencies.
+
+* Structure of a Unit Test (2)
+- SetUp / TearDown for Infrastructure Only
+Use the SetUp / TearDown methods only for infrastructure that your unit
+test needs. Do not use it for anything that is under test.
+
+- Test Method Naming
+Use a pattern that reflects behaviour of tested code, e.g. Behaviour[_OnTrigger][_WhenScenario].
+
+  LoadUserSettings_WhenUnAuthenticated(...)
+  SaveDocument_OnSaveAll_WhenDiskFull(...)
