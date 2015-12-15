@@ -73,3 +73,32 @@ Use a pattern that reflects behaviour of tested code, e.g. Behaviour[_OnTrigger]
 
   LoadUserSettings_WhenUnAuthenticated(...)
   SaveDocument_OnSaveAll_WhenDiskFull(...)
+
+* Unit Tests in Visual Studio
+- VS already comes with a ready-to-use test runner ( Test -> Windows -> Test Explorer).
+(With everyhing that is not MsTest, we need an additional test runner, that helps VS discover test methods and classes and run them.)
+
+- There are multiple unit test frameworks like: xUnit, nUnit, MsTest, etc...
+(They all come with their own test runners which have to be installed via Nuget.)
+
+- Resharper provides a decent proprietary test runner for xUnit and nUnit.
+
+* Writing test in C#
+We'll be using xUnit!
+
+  public class HostContextTests : ServiceBaseTest
+  {
+    [Fact]
+    public void TestAddService()
+    {
+      // Setup
+      var fakeService = A.Fake<IDataAccessService>();
+
+      // Act
+      Context.WithService(c => fakeService);
+      var result = Context.GetService<IDataAccessService>();
+
+      // Assert
+      result.Should().NotBeNull("HostContext should have returned the implementation for the given service.");
+    }
+  }
