@@ -1,5 +1,4 @@
 # Datenbanken der anderen Seite der Macht
-
 Ich kann mich kaum daran erinnern, jemals ein Projekt umgesetzt zu haben, welches keine Datenbanken verwendet! Datenbanken sind für uns als Entwickler so fundamental relevant wichtig und trotzdem sprechen wir wenig bis gar nicht darüber. Wir kennen unseren SQL oder Oracle Server in- und auswendig, mit all ihren Eingenheiten und Macken. Ja, wir lösen all unsere Probleme mit unserem bevorzugten relationalen Datenbanksystem. Wir lassen uns sogar dazu hinreissen, mit anderen Entwicklern darüber zu streiten, ob und weshalb unser ER-Baby nun das Beste ist, als ob wir als überemotionale Eltern beim Spiel unserer Kinder in einer Juniorliga zusähen. Wärend wir mit unseren Grabenkämpfen beschäftigt waren, entstanden ganz neue Datenbanken, welche uns neue Möglichkeiten schaffen und ungwöhnliche Antworten auf unsere alten und neuen Probleme geben.
 
 In einer Trilogie von Blogposts möchte ich in die Welt der Datenbanken eintauchen und aufzeigen, was es ausserhalb der ER-Welt noch gibt und wie wir unsere zukünftigen Probleme damit lösen können. Alles Wissen welches in hier teile stammt entweder direkt von mir oder ich kann es durch meine Erfahrung als korrekt annehmen.
@@ -47,6 +46,6 @@ Transaktionen und Schemata bremsen Datenbanken aus und bringen im 21. Jahrhunder
 
 Neue Anforderungen treffen auf alte Lösungen. Als ich ER-Datenbanken kennenlernte wurde Sie für mich zum Hammer und da ich nun einen Hammer hatte, wurde jedes Problem zum Nagel. Ich bin nicht alleine: Bis heute versuchen wir mit ER-Datenbanken unsere Anforderungen zu erschlagen und schaffen uns mehr Probleme als Lösungen. Als ob wir nicht gemerkt hätten dass unser Problem eine Schaube ist, versuchen wir sie mit unserem Hammer in ihr Gewinde zu schlagen. Alles was wir damit erreichen ist ein kaputtes Gewinde und wenn die Schaube trotzdem halten sollte, tut sie das eher schlecht als recht.
 
-Wir haben sie aber die neuen Antworten auf unsere neuen Probleme, diese werde ich in den nächsten zwei Blog-Posts aufzeigen. Das eine sind Dokumentendatenbanken, das andere Graphendatenbanken. Wichtig ist jedoch, dass wir bereit sind unsere Probleme als auch Schrauben zu sehen (nicht als Nägel) und uns auf neue Werkzeuge einlassen auch wenn es gerade einfacher wäre, den Hammer weiter zu benutzen!
+Wir haben sie aber die neuen Antworten auf unsere neuen Probleme, diese werde ich in den nächsten zwei Blog-Posts aufzeigen. Das eine sind Dokumentendatenbanken, das andere Graphendatenbanken. Wichtig ist jedoch, dass wir bereit sind unsere Probleme auch als Schrauben zu sehen (nicht als Nägel) und uns auf neue Werkzeuge einlassen auch wenn es gerade einfacher wäre, den Hammer weiter zu benutzen!
 
 Viel Spass mit den Follow-Ups!
