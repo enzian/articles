@@ -108,9 +108,10 @@ We'll be using xUnit!
     {
       // Setup
       var fakeService = A.Fake<IDataAccessService>();
+      var context = new Context();
+      Context.WithService(c => fakeService);
 
       // Act
-      Context.WithService(c => fakeService);
       var result = Context.GetService<IDataAccessService>();
 
       // Assert
@@ -120,7 +121,6 @@ We'll be using xUnit!
 
 Every test consists of three parts: Arrange, Act and Assert!
 
-
 * Ex. 1: Setup of a failing test
 
 - Create a new Solution
@@ -128,6 +128,63 @@ Every test consists of three parts: Arrange, Act and Assert!
 - Pick xUnit or nUnit...
 - ... and add a new test class with a test method for the framework you picked.
 - make the test fail!
+
+
+* Unit Test Principles [1]
+
+- Fast
+Unit tests have to be fast in order to be executed often. Fast means much
+smaller than seconds.
+
+- Isolated
+Isolated testee: Clear where the failure happened.
+Isolated test: No dependency between tests (random order).
+
+- Repeatable
+No assumed initial state, nothing left behind, no dependency on external
+services that might be unavailable (databases, file system …).
+
+* Unit Test Principles [2]
+
+- Self-Validating
+No manual test interpretation or intervention. Red or green!
+
+- Timely
+Tests are written at the right time (TDD, DDT, POUTing)
+
+* Smoke out the bad smells
+
+* Smoke out the bad smells [1]
+  public class HostContextTests
+  {
+    [Fact]
+    public void TestConstruction(){
+      var subject = new Context();
+      subject.LoadAllDependencies();
+    }
+  }
+
+
+
+* Bad smells
+
+- Test Not Testing Anything
+- Test Needing Excessive Setup
+- Too Large Test / Assertions for Multiple Scenarios
+- Checking Internals
+- Test Only Running on Developer’s Machine
+- Test Checking More than Necessary
+- Irrelevant Information
+- Chatty Test
+- Test Swallowing Exceptions
+- Test Not Belonging in Host Test Fixture
+- Obsolete Test
+- Hidden Test Functionality
+- Bloated Construction
+- Unclear Fail Reason
+- Conditional Test Logic
+- Test Logic in Production Code
+- Erratic Test
 
 * Ex. 2: Checkout the course repository
 Throughout this course we'll be writing a fully functional xml parser. A lot of sample code is already there for you to use. Just checkout the git tag corresponding to the exercise you're currently working on.
