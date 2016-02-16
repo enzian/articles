@@ -155,14 +155,16 @@ Tests are written at the right time (TDD, DDT, POUTing)
 * Smoke out the bad smells
 
 * Smoke out the bad smells [1]
-  public class HostContextTests
-  {
-    [Fact]
-    public void TestConstruction(){
-      var subject = new Context();
-      subject.LoadAllDependencies();
-    }
-  }
+
+.code res/code/bad_smells.cs /BEGIN1 OMIT/,/END1 OMIT/
+
+* Smoke out the bad smells [2]
+
+.code res/code/bad_smells.cs /BEGIN2 OMIT/,/END2 OMIT/
+
+* Smoke out the bad smells [3]
+
+.code res/code/bad_smells.cs /BEGIN3 OMIT/,/END3 OMIT/
 
 
 
