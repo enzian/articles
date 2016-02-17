@@ -16,6 +16,9 @@ We'll go back and forth between inputs and exercises!
 
 - Input: Testing Foundations
 - Ex: Setting up basic tests, test execution
+
+Day 2:
+
 - Input: Mocking & Faking
 - Ex: Mocking and Faking
 - Input: Integration Testing
@@ -40,7 +43,7 @@ We'll go back and forth between inputs and exercises!
 * Right tools for the right abstraction:
 .image res/images/testing_pyramid_detailed.png _ 700
 
-* Approaches
+* Approaches [1]
 
 - ATDD – Acceptance Test Driven Development
 Specify a feature first with a test, then implement.
@@ -48,12 +51,16 @@ Specify a feature first with a test, then implement.
 - TDD – Test Driven Development
 Red – green – refactor. Test a little – code a little.
 
+.image res/images/06_red_green_refactor.jpg
+
+
+* Approaches [2]
+
 - DDT – Defect Driven Testing
 Write a unit test that reproduces the defect – Fix code – Test will succeed – Defect will never return.
 
 - POUTing – Plain Old Unit Testing
 Aka test after. Write unit tests to check existing code. You cannot and probably do not want to test drive everything. Use POUT to increase sanity. Use to add additional tests after TDDing (e.g. boundary cases).
-
 
 * Unit-Testing
 
@@ -61,6 +68,9 @@ Aka test after. Write unit tests to check existing code. You cannot and probably
 - Simplicity
 Objects have to be easily creatable. Otherwise, easy and fast testing is not
 possible. Pass dependencies and configuration/parameters into the constructor.
+
+- Lifetime
+Pass dependencies and configuration/parameters into the constructor that have a lifetime equal to or longer than the created object. For other values use methods or properties.
 
 - Abstraction
 Use abstraction layers at system boundaries (database, file system, webservices, ...) that simplify unit testing by enabling the usage of fakes.
@@ -166,9 +176,7 @@ Tests are written at the right time (TDD, DDT, POUTing)
 
 .code res/code/bad_smells.cs /BEGIN3 OMIT/,/END3 OMIT/
 
-
-
-* Bad smells
+* Bad smells [4]
 
 - Test Not Testing Anything
 - Test Needing Excessive Setup
@@ -179,6 +187,9 @@ Tests are written at the right time (TDD, DDT, POUTing)
 - Irrelevant Information
 - Chatty Test
 - Test Swallowing Exceptions
+
+* Bad smells [5]
+
 - Test Not Belonging in Host Test Fixture
 - Obsolete Test
 - Hidden Test Functionality
@@ -191,5 +202,5 @@ Tests are written at the right time (TDD, DDT, POUTing)
 * Ex. 2: Checkout the course repository
 Throughout this course we'll be writing a fully functional xml parser. A lot of sample code is already there for you to use. Just checkout the git tag corresponding to the exercise you're currently working on.
 
-- Use git to checkout https://github.com/enzian/tddxmlparser
+- Use git to checkout https://github.com/enzian/tddxmlparser at tag
 - Open the solution in VS and run the tests (they should all fail!)
