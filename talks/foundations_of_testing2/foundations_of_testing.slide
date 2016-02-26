@@ -11,3 +11,37 @@ http://michaelingold.ch/
 
 
 * Agenda
+
+- Review Unit Testing 1
+- Faking with FakeItEasy time :-)
+- Short intro to integration testing
+- Exercises
+
+* Review
+What we've covered:
+
+- Why we test...
+- Different approaches to testing
+- Structure of a unit testing
+- Test principles (Fast, Isolated, Self-Validating, Repeatable, Timely)
+- Different Abstraction Level (Unit-, Integration-, Api- and UI-Test)
+
+* Faking
+
+How do you test your dependencies, without killing isolation?
+
+.code res/code/faking.cs /BEGIN1 OMIT/,/END1 OMIT/
+
+Extract Interfaces, Fake, Inject, Test!
+
+* Faking with FakeItEasy
+
+.code res/code/faking.cs /BEGIN2 OMIT/,/END2 OMIT/
+
+* FakeItEasy [0]
+
+- Basic usage:
+.code res/code/FakeItEasy.cs /BEGIN1 OMIT/,/END1 OMIT/
+
+- Create Fakes:
+.code res/code/FakeItEasy.cs /BEGIN2 OMIT/,/END2 OMIT/
