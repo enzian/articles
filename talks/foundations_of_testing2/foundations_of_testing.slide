@@ -1,3 +1,4 @@
+
 Testing
 Foundations of Testing - The Sequel
 08:30 2 Mar 2016
@@ -38,10 +39,51 @@ Extract Interfaces, Fake, Inject, Test!
 
 .code res/code/faking.cs /BEGIN2 OMIT/,/END2 OMIT/
 
+.caption credit to [[http://www.dotnet-zentral.ch/wp-content/uploads/2012/09/Fake-It-Easy.pdf][Philipp Dolder]]
+
 * FakeItEasy [0]
 
 - Basic usage:
 .code res/code/FakeItEasy.cs /BEGIN1 OMIT/,/END1 OMIT/
 
+- What: `virtual`, `abstract`, `interface`.
+
 - Create Fakes:
 .code res/code/FakeItEasy.cs /BEGIN2 OMIT/,/END2 OMIT/
+
+* FakeItEasy [1]
+
+- Specify return values:
+.code res/code/FakeItEasy.cs /BEGIN3 OMIT/,/END3 OMIT/
+
+- Asserting Calls:
+.code res/code/FakeItEasy.cs /Assert1 OMIT/,/Assert1End OMIT/
+
+
+* FakeItEasy [2]
+
+- Argument matching:
+.code res/code/FakeItEasy.cs /ARGUMENTMATCHING OMIT/,/ARGUMENTMATCHINGEND OMIT/
+
+- Conditional argument matching:
+.code res/code/FakeItEasy.cs /ARGUMENTMATCHING1 OMIT/,/ARGUMENTMATCHINGEND1 OMIT/
+
+- Raise events:
+.code res/code/FakeItEasy.cs /BEGINEVENTS OMIT/,/ENDEVENTS OMIT/
+
+* FakeItEasy [4]
+
+- Usage of invocation arguments:
+.code res/code/FakeItEasy.cs /INVOCATIONARGS OMIT/,/INVOCATIONARGSEND OMIT/
+Works with up to 4 arguments, signature is used to match (type and order)
+
+- Usage of invocation object:
+.code res/code/FakeItEasy.cs /INVOCATIONARGS1 OMIT/,/INVOCATIONARGSEND1 OMIT/
+Works with arbitrary numbers of arguments, indexes must match!
+
+*Attention*: Using invocation arguments can (and will) cause a hit on refactorability of your code!
+
+* FakeItEasy [5]
+
+- Throwing exceptions
+.code res/code/FakeItEasy.cs /EXCEPTIONS OMIT/,/EXCEPTIONSEND OMIT/
