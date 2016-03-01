@@ -87,3 +87,109 @@ Works with arbitrary numbers of arguments, indexes must match!
 
 - Throwing exceptions
 .code res/code/FakeItEasy.cs /EXCEPTIONS OMIT/,/EXCEPTIONSEND OMIT/
+
+* Integration testing
+
+* Testing Pyramid
+.image res/images/test-pyramid.png _ 700
+
+* Integration Tests
+*Scope*: Multiple units of functionality of a system.
+
+*Execution*: should be automated.
+
+*Goal*: Find, prevent or fix gaps in the integration of multiple units of functionality.
+
+*Characteristics:*
+
+- Bounded context (Does not test the world)
+- Isolated (Filesystems, Databases, 3rd-party systems, etc.)
+- Should be fast!
+- Repeatable
+- Automatically executable
+
+* Integration Testing with `machine.specifications` [1]
+- [MSpec] is an integration test framework
+- Establish, Because, It, Cleanup (similar to Arrange, Act, Assert)
+.code res/code/mspec.cs /SAMPLE OMIT/,/SAMPLEEND OMIT/
+
+- Static Context (TestCases cannot run concurrently)
+
+* Integration Testing with `machine.specifications` [2]
+
+- [[https://github.com/machine/machine.specifications#command-line-reference][Comes with it's own test runner.]]
+  $ nuget install Machine.Specifications
+- Executes where the class is adorned with `[Subject(...)]`:
+.code res/code/mspec.cs /ATTRIBUTES OMIT/,/ATTRIBUTESEND OMIT/
+- Use Tags to run categories of test:
+.code res/code/mspec.cs /TAGS OMIT/,/TAGSEND OMIT/
+  $ mspec.exe --include "RegressionTest,LoadTests" <assemblies>
+
+* Ex 1: Get an MSpec test to fail!
+
+- Create a new Solution
+- Add a new library project
+- Install MSpec and the respective vs runner
+  PM> Install-Package Machine.Specifications
+  PM> Install-Package Machine.Specifications.Runner.VisualStudio
+- create a new subject and make the test fail!
+- make the test fail!
+
+* Ex 2: Get Witschi to 100%
+
+1. *DO NOT ASSUME A PROJECT WITH 100% CODE COVERAGE IS GOOD!!!!*
+2. Checkout the Witschi solution:
+
+  $ git clone http://sbastfsv02:8080/tfs/Individual/_git/Witschi
+
+3. Look at the existing test `When_Requesting_Recommendation`
+4. Make sure it succeeds!
+5. Pick one of the following challenges.
+6. Complete the challenge!
+7. Win the challenge with by:
+
+    1. Shock and awe all of us!
+    2. Keep your subject as clean and simple as possible
+    3. Writing sensible and concise test cases
+    5. Using fancy features (i.e. extension functions, rarely used
+       MSpec, FakeItEasy or FluentAssertions features, etc.)
+    6. Especially clean code!
+
+.caption Get the customers specs from the customer folder!
+
+
+* Challenge 1: Complex criteria
+
+Some criteria has to be evaluated in a more complex way that just taking the value from a dropdown box. The BMI is such a criteria. Here the value for the criterion has to be evaluated given the persons size and weight.
+
+- Create a new subject that tests the complex criteria evaluation as implemented in `DataServiceStub.EvaluateComplexCriterion()`
+- Test BMI evaluation for men and women!
+- Invent your own complex criterion and add a test for that!
+
+* Challenge 2: Data access
+
+The frontend queries data from the backend like Pillows and Criteria. It's important this data is handled correctly and error cases are implemented to fail gracefully.
+
+Test data access as already implemented in `DataServiceStub`:
+
+  public IEnumerable<Pillow> GetPillows(){ .. }
+  public Pillow GetPillow(string id){ .. }
+  public Criterion[] GetCriteria(){ .. }
+  public Criterion GetCriterion(string key){ .. }
+
+- Test edge cases _just_as_well_ as error cases!
+- Keep the `Establish` code simple and smart!
+
+* Challenge 3: Production Data for testing
+
+Extend the context of the `When_Requesting_Recommendation` subject to contain all original test data:
+
+  pillows   -> $/res/bootstrap/mgo_init.js
+  criteria  -> $res/bootstrap/mgo_init.js
+
+and optionally:
+
+  rules    -> $res/bootstrap/configurationrules.nq
+
+- Add additional test cases for a production level pillow query!
+- Keep the `Establish` code simple and smart!

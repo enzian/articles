@@ -15,7 +15,6 @@ public class ServiceContext
 }
 // END1 OMIT
 
-
 // BEGIN2 OMIT
 public class ServiceContextTest
 {
