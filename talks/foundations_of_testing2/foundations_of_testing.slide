@@ -145,6 +145,7 @@ Works with arbitrary numbers of arguments - _indexes_must_match_!
 2. Checkout the Witschi solution:
 
   $ git clone http://sbastfsv02:8080/tfs/Individual/_git/Witschi
+  $ git pull origin feature/mspectest 
 
 3. Look at the existing test `When_Requesting_Recommendation`
 4. Make sure it succeeds!
