@@ -16,7 +16,7 @@ http://michaelingold.ch/
 - Review Unit Testing 1
 - Faking with FakeItEasy time :-)
 - Short intro to integration testing
-- Exercises
+- Challenge [!]
 
 * Review
 What we've covered:
@@ -41,7 +41,7 @@ Extract Interfaces, Fake, Inject, Test!
 
 .caption credit to [[http://www.dotnet-zentral.ch/wp-content/uploads/2012/09/Fake-It-Easy.pdf][Philipp Dolder]]
 
-* FakeItEasy [0]
+* FakeItEasy [1]
 
 - Basic usage:
 .code res/code/FakeItEasy.cs /BEGIN1 OMIT/,/END1 OMIT/
@@ -51,7 +51,7 @@ Extract Interfaces, Fake, Inject, Test!
 - Create Fakes:
 .code res/code/FakeItEasy.cs /BEGIN2 OMIT/,/END2 OMIT/
 
-* FakeItEasy [1]
+* FakeItEasy [2]
 
 - Specify return values:
 .code res/code/FakeItEasy.cs /BEGIN3 OMIT/,/END3 OMIT/
@@ -60,7 +60,7 @@ Extract Interfaces, Fake, Inject, Test!
 .code res/code/FakeItEasy.cs /Assert1 OMIT/,/Assert1End OMIT/
 
 
-* FakeItEasy [2]
+* FakeItEasy [3]
 
 - Argument matching:
 .code res/code/FakeItEasy.cs /ARGUMENTMATCHING OMIT/,/ARGUMENTMATCHINGEND OMIT/
@@ -79,7 +79,7 @@ Works with up to 4 arguments, signature is used to match (type and order)
 
 - Usage of invocation object:
 .code res/code/FakeItEasy.cs /INVOCATIONARGS1 OMIT/,/INVOCATIONARGSEND1 OMIT/
-Works with arbitrary numbers of arguments, indexes must match!
+Works with arbitrary numbers of arguments - _indexes_must_match_!
 
 *Attention*: Using invocation arguments can (and will) cause a hit on refactorability of your code!
 
@@ -108,7 +108,7 @@ Works with arbitrary numbers of arguments, indexes must match!
 - Repeatable
 - Automatically executable
 
-* Integration Testing with `machine.specifications` [1]
+* Integration Testing with Machine.Specifications [1]
 - [MSpec] is an integration test framework
 - Establish, Because, It, Cleanup (similar to Arrange, Act, Assert)
 .code res/code/mspec.cs /SAMPLE OMIT/,/SAMPLEEND OMIT/
@@ -125,6 +125,10 @@ Works with arbitrary numbers of arguments, indexes must match!
 .code res/code/mspec.cs /TAGS OMIT/,/TAGSEND OMIT/
   $ mspec.exe --include "RegressionTest,LoadTests" <assemblies>
 
+* You Made It! You've earned yourself something:
+.iframe https://www.youtube.com/embed/FNf-IGmxElI?t=7 500 980
+
+
 * Ex 1: Get an MSpec test to fail!
 
 - Create a new Solution
@@ -132,12 +136,12 @@ Works with arbitrary numbers of arguments, indexes must match!
 - Install MSpec and the respective vs runner
   PM> Install-Package Machine.Specifications
   PM> Install-Package Machine.Specifications.Runner.VisualStudio
-- create a new subject and make the test fail!
-- make the test fail!
+- create a new subject ...
+- ... make the test fail!
 
 * Ex 2: Get Witschi to 100%
 
-1. *DO NOT ASSUME A PROJECT WITH 100% CODE COVERAGE IS GOOD!!!!*
+1. DO NOT ASSUME A PROJECT WITH 100% CODE COVERAGE IS *"GOOD"* !!!!
 2. Checkout the Witschi solution:
 
   $ git clone http://sbastfsv02:8080/tfs/Individual/_git/Witschi
@@ -187,9 +191,19 @@ Extend the context of the `When_Requesting_Recommendation` subject to contain al
   pillows   -> $/res/bootstrap/mgo_init.js
   criteria  -> $res/bootstrap/mgo_init.js
 
-and optionally:
+Optional objective:
 
   rules    -> $res/bootstrap/configurationrules.nq
 
 - Add additional test cases for a production level pillow query!
 - Keep the `Establish` code simple and smart!
+
+* References
+
+[1] [[https://www.bbv.ch/images/bbv/pdf/downloads/V2_Clean_Code_V3.pdf][TDD/ATDD & Clean Code Cheat Sheet]] [[https://twitter.com/ursenzler][@ursenzler]]
+
+[2] [[https://github.com/machine/machine.specifications#machinespecifications][Machine.Specifications Reference]]
+
+[3] [[https://github.com/FakeItEasy/FakeItEasy/wiki][FakeItEasy Reference]]
+
+[4] [[http://www.dotnet-zentral.ch/wp-content/uploads/2012/09/Fake-It-Easy.pdf][The winner fakes it all:]] [[http://www.dotnet-zentral.ch/][a .Net-Zentral Usergroup talk]] ([[https://twitter.com/search?q=%23dotznt&src=typd][#dotznt]]) by [[https://twitter.com/philippdolder][@philippdolder]]

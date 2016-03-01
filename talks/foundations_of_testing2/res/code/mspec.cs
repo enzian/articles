@@ -1,5 +1,5 @@
 // SAMPLE OMIT
-[Subject(typeof(SecurityService), "Authentication")]  // or a combo!
+[Subject("Authentication")] 
 public class When_authenticating_an_admin_user
 {
     Establish context = () =>
@@ -21,7 +21,7 @@ public class When_authenticating_an_admin_user
 [Subject("Authentication")]                           // a description
 [Subject(typeof(SecurityService))]                    // the type under test
 [Subject(typeof(SecurityService), "Authentication")]  // or a combo!
-public class When_authenticating_a_user { ... }       // Only one Subject Attribute is allowed
+public class When_authenticating_a_user { ... }       // Only one SubjectAttribute is allowed
 // ATTRIBUTESEND OMIT
 
 // TAGS OMIT
