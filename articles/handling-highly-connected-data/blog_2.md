@@ -2,14 +2,9 @@
 
 Dies ist der zweite Teil einer Blog-Trilogie zu Datenbanktechnologien. Den ersten Teil findest du [hier](blog_1.md).
 
-In diesem Teil werde ich mich näher mit Dokumentendatenbanken befassen. Erst aber eine kurze Zusammenfassung der Anforderungen and moderne Applikation undauf welche neuen Möglichkeiten sie zählen können um diese Herausforderungen zu erfüllen (nur Relevante ausgeführt):
+Was tun, wenn der Datensee zu tief ist? Was wenn traditionelle ER-Datenbanken versagen? Dann ist es Zeit, sich mit Dokumentendatenbanken auseinander zu setzen. Sie nutzen moderne Technologien aus um jene Probleme zu lösen, welche ER-Datenbanken kaum lösen können.
 
-* Transaktions- und Schemalosigkeit
-* Datenmenge (Grösse und Menge der Einträge in der DB)
-* Klassifizierung
-* Verfügbarkeit von Haupt und Festplattenspeicher
-
-Dokumentendatenbanken versuchen diese Anforderungen auf neuen Wegen zu begegnen und brechen dabei mit einigen Prinzipien relationaler Datenbanken wie Transaktionen und Schemadefinitionen.
+Im vorhergehenden Teil dieser Blog-Reihe habe ich sowohl einige neue Gegebenheiten beschrieben, auf welche moderne IT-Systeme zählen können wie z.B die nahezu unlimitierte Verfügbarkeit von Haupt- und Festplattenspeicher oder Bandbreiten, als auch einige neue Anforderungen, welche an moderene Systeme gestellt werden, wie z.B riesige Datenmengen, Klassifizierungen und Durchsatz. Dokumentendatenbanken versuchen diese Anforderungen auf neuen Wegen zu begegnen und brechen dabei mit einigen Prinzipien relationaler Datenbanken wie Transaktionen und Schemadefinitionen.
 
 ## Schemalosigkeit
 Die grundlegende Eigenschaft, welche sich alle Dokumentendatenbanken teilen, ist die Tatsache, dass sie über kein Schema verfügen. Das heisst, Daten werden nicht mehr zwingend in einer normierten Form gespeichert, sondern können ihre Struktur auch ändern.
@@ -49,7 +44,8 @@ Dokumentendatenbanken sind dafür gebaut, grosse Datenmengen zu halten. Grosse D
 
 Die meisten Datenbanken unterstützen verschiedene Sharding-Methoden, welche für ganz unterschiedliche Anwendungsfälle nützlich sein können. `Range-based Sharding` kann einzelne Dokumente anhand eine Kriteriums (z.B dem Erstellungsdatum eines Logs) prioriseren und auf die verschiedenen Shard verteilen. Diese Shards können dann auf unterschiedlichen Speichermedien operieren. So können z.B Logeinträge der letzten 5 Tage im Memory, jene der letzten 2 Wochen auf SSD-Platten und der Rest auf langsamen aber günstigen Storage-Arrays gespeichert werden. Daten können auch mittels `Hash Based Sharding` verteilt werden. Dabei wird auf Grund eines gegebenen Schlüssels ein Hash berechnet und das Dokument anhand des resultierenden Hashs auf einen Shard verteilt. Dies kann unter Umständen zu sehr linear ausgeglichenen Auslastungen der Shards führen, was einem linearen Load-Ballancing gleich kommt.
 
-Es gibt durchaus noch weitere mächtige Unterschiede zwischen ER- und Dokumentendatenbanken, welche hier nicht erwähnt sind. Ich überlasse dies jedoch dem Selbststudium des Lesers. Ich hoffe dargelegt zu haben, welche Vorteile mit dem Verzicht auf Transaktionen und Locks mit sich bringen auch wenn es von uns Entwicklern etwas Umdenken braucht. Die Performance-Vorteile, welche sich daraus ergeben sind es wert! Um noch einige Vertreter unter den Dokumentendatenbanken hervor zu heben:
+## Fazit
+Es gibt durchaus noch weitere mächtige Unterschiede zwischen ER- und Dokumentendatenbanken, welche hier nicht erwähnt sind. Ich überlasse diese jedoch dem Selbststudium des Lesers. Ich hoffe dargelegt zu haben, welche Vorteile mit dem Verzicht auf Transaktionen und Locks mit sich bringen auch wenn es von uns Entwicklern etwas Umdenken braucht. Die Performance-Vorteile, welche sich daraus ergeben sind es wert! Um noch einige Vertreter unter den Dokumentendatenbanken hervor zu heben:
 
 * [MongoDB](https://docs.mongodb.org/manual/), der Platzhirsch unter den Dokumentendatenbanken, sehr weit entwickelt und universell einsetzbar, mustergültige Sprachbindings in allen populären Sprachen.
 * [RavenDB]https://ravendb.net/docs/article-page/3.0/csharp), vorallem mit .Net Programmen verwendbar!
