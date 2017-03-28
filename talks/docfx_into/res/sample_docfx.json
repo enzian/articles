@@ -1,0 +1,40 @@
+{
+  "build": {
+    "content": [
+      {
+        "files": [
+          "index.md",
+          "toc.yml",
+          "articles/**.md",
+          "articles/**/toc.yml"
+        ],
+        "src": "revisions/head",
+        "dest": ""
+      }
+    ],
+    "resource": [
+      {
+        "files": [
+          "/**.jpg",
+          "/**.png"
+        ],
+        "src": "revisions/head",
+        "dest": "images"
+      }
+    ],
+    "dest": "_site",
+    "globalMetadataFiles": [],
+    "fileMetadataFiles": [],
+    "template": [
+      "default",
+      "template"
+    ],
+    "postProcessors": [
+      "ExtractSearchIndex"
+    ],
+    "globalMetadata": {
+      "_appTitle": "Admin Docs"
+    },
+    "noLangKeyword": false
+  }
+}

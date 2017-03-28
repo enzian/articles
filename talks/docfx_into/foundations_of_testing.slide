@@ -1,0 +1,108 @@
+Docfx
+a short intro
+08:51 28 Mar 2017
+Tags: docfx, docs, rest, api, c#
+
+Michael Ingold
+Software Engineer, Leuchter AG
+michael.ingold@leuchterag.ch
+http://michaelingold.ch/
+@michaelingold
+
+
+* Agenda
+
+- Prerequisites
+- Markdown
+- Docfx
+- Table Of Content
+- Markdown Specific Language Features
+
+* Prerequisites
+
+- Visual Studio Code
+.link https://code.visualstudio.com/download Download and Install
+
+- DocFx
+.link https://dotnet.github.io/docfx/tutorial/docfx_getting_started.html Install & Getting started with DocFx
+
+* Markdown 
+
+MD is a *document* *description* *language* that has to be *processed* by a renderer into various output formats:
+
+_Sample:_
+.code -edit res/sample.md
+.link https://guides.github.com/features/mastering-markdown/ Full Markdown Reference
+
+* DocFx
+
+- is a documentation tool that uses Markdown as a base language for *articles*.
+- CLI tool `docfx`-h` (there is also a [[nuget][https://www.nuget.org/packages/docfx/]] package available)
+- uses configuration files in json formats
+- builds static HTML pages as documentation and can serve them over HTTP
+- Can compile documentation from swagger files, C#/VB project sources and Markdown.
+- Can compile multiple versions of the same documentation. (use git submodules for that!)
+
+* DocFx [1] - Docfx.Json
+
+_Sample:_
+.link res/sample_docfx.json
+
+- `content`: files to build
+- `resources`: files to copy as resources
+- `dest`: the destination of where the docs should end up
+- `template`: the *default* template can be extended!
+- `postprocessors`: postprocessors that will run after compilation and extract things like for example search indices!
+
+* DocFx [2] - Directory Structure
+
+.code res/directory_structure.txt
+
+* DocFx [3]
+
+    This is open-source software under MIT License.
+
+    Usage1: docfx <docfx.json file path> [-o <output folder path>]
+    Usage2: docfx <subcommand> [<args>]
+
+
+    See 'docfx help <command> to read about a specific subcommand guide
+
+        build           : Generate client-only website combining API in YAML files and conceptual files
+        dependency      : Export dependency file
+        download        : Download remote xref map file and create an xref archive in local.
+        help            : Get an overall guide for the command and sub-commands
+        init            : Generate an initial docfx.json following the instructions
+        merge           : Merge .net base API in YAML files and toc files.
+        metadata        : Generate YAML files from source code
+        serve           : Host a local static website
+        template        : List or export existing template
+    Info: Completed executing in 1.0616 milliseconds.
+
+* DocFx [3] - Common Commands
+
+- `docfx`: build the entire docs and all metadata (assumes `docfx.json` to be present in the work directory)
+- `docfx`-serve`: compiles the documentation if necessary and starts serving it on `http://localhost:PORT`
+- `docfx`-h`: provides help topics.
+
+ DocFx unfortunately is not particularly well documented!
+
+* Table of Content
+
+- Are the base of structure in DocFx
+- Any article not references in a TOC will not be build or reachable for the user!
+- Documentation articles can be arranges hierarchically (key `items`)
+- Articles can be referenced (a) via relative file links (don't to that!!!) or their `topicUid` which is independent of the structure of your sources (use this!!!)
+
+- [[https://dotnet.github.io/docfx/tutorial/intro_toc.html][_Detailed_toc.yml_reference_]]
+
+* Table of Content [1]
+.code res/toc.yml
+
+* DocFx Specific Markdown
+
+- Articles can have headers denoted by *---*
+.code res/docfx_spec.md
+- The `uid` is the key referenced by the TOC files via `topicUid`!
+
+* Happy Hackings

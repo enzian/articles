@@ -1,0 +1,13 @@
+- $
+  - docfx.json
+  - .gitignore
+  - [.gitmodules]
+  - [template] // contains custom template files
+  - revisions
+    - head // contains the most recent version (tip) of the docs
+      - articles
+        - article1.md
+        - article2.md
+      - index.html
+      - toc.yml
+    - [vX.X] // optionally additional docs versions
