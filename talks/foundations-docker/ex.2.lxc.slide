@@ -1,0 +1,53 @@
+Containers Ex.2
+A webserver with nginx
+15:04 20 Oct 2017
+Tags: containers, c#, dotnet, nginx, docker, lxc, virtualization
+
+Michael Ingold
+Software Engineer, Leuchter AG
+michael.ingold@leuchterag.ch
+http://michaelingold.ch/
+@michaelingold
+
+
+* Ex. 1 lxc
+
+* Prerequisites
+
+- Ubuntu or Windows host OS
+- install docker.io package
+- Terminal and some knowledge about how to use it.
+
+* Simple Webserver
+
+Start a container (nginx):
+
+ docker run -it -p 8080:80 nginx
+
+Press CTRL+C to terminate the process and restroy the container
+
+ docker run -it -p 8080:80 nginx
+
+List running containers:
+
+ docker ps
+
+* Building your own container
+
+Inspect and build *./res/ex2/Dockerfile*:
+
+ docker build -t my-fancy-page ./res/ex2
+
+Then run your container:
+ 
+ docker run -it -p 8080:80 my-fancy-page:latest
+
+Then use the browser to navigate to [[http://localhost:8080][http://localhost:8080/index.html]].
+
+
+* Resources
+
+.link https://docs.docker.com/samples/library/nginx/#hosting-some-simple-static-content [1] Jumpstart for nginx and docker, docs.docker.com
+.link https://docs.docker.com/ [2] docker.io Reference
+
+

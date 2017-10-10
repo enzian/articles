@@ -1,0 +1,120 @@
+Containers
+Foundations of Docker
+20 Oct 2017
+Tags: containers, c#, dotnet, nginx, docker, lxc, virtualization
+
+Michael Ingold
+Software Engineer, Leuchter AG
+michael.ingold@leuchterag.ch
+http://michaelingold.ch/
+@michaelingold
+
+
+* Agenda
+
+- Virtualization
+- Demo
+- Docker
+- Exercises
+- Compose
+- Exercises
+
+* 
+.image res/quote.png _ 800
+
+* Virtualization [0]
+
+Resources we manage:
+
+- *Memory:* Generally RAM but also includes Caches at different layers
+- *Compute:* Generally includes how much time a workload can get from the CPU
+- *Network:* Usually bandwith is sharded between workloads but this can also include SDNs, Firewall rules etc.
+- *Storage:* Generally a max quota of storage that can be used by a workload but can also mean enforcing IOPS limits.
+- *Various:* host system resources like memory mapped files, message queues, sockets etc. 
+
+
+* Types of virtualization
+
+Generally we distinguish two types of virtualization:
+
+- Hardware Virtualization
+Complete abstraction of the hardware through a hypervisor.
+
+- OS Virtualization (Operating System)
+Host and guest share specific system (usually the kernel) resources.
+
+
+* Hardware Virtualization
+
+.image res/hardware-virt.png _ 900
+
+* Hardware Virtualization [1]
+
+- Hypervisor based virtualization
+- Hypervisor manages resources
+- Usually your processor will support this kind of virtualization at it's silicon level
+- Usually guests must be of the same computing architecture as your processors instruction set.
+- Expensive - all interation muss pass through additional layers of abstraction with translation.
+- Xen, VmWare, VirtualBox, Hyper-V, ...
+
+* OS Virtualization
+
+.image res/os-virt.png _ 900
+
+* OS Virtualization [1]
+
+- The kernel manages & isolates resources between guests
+- Host & Guests share the same kernel
+- Requires the same computing architecture for host and guests
+- Sharing the kernel is a security risk!
+- Bare-Metal performance, no Hypervisor and no instruction translation required
+- LXC, OpenVz, Solaris Zones, etc.
+
+
+* OS Virtualization with Docker
+
+.image res/docker-virt.png _ 900
+
+* Demo: OS-Virtualization with lxc
+
+
+* 
+.image res/quote2.png _ 900
+
+* Docker [0]
+
+Docker is a collection of tools for virtualization:
+
+- Container format (Dockerfile)
+- runc (a.k.a. `containerd` - container runtime)
+- libnetwork
+- libentitlement
+
+* Docker [1]
+
+.image res/docker-virt.png _ 900
+
+* Docker - Image format [2]
+
+*FROM*: Provide a base image.
+*COPY*: Copy file form a local directory into the container
+*ENV*: Set an environment variable
+*RUN*: Runs a command.
+*EXPOSE*: Expose a port that will be bound by this container.
+*CMD*: Run a command and terminate the container when it returns.
+
+Go to [[https://docs.docker.com/engine/reference/builder/][docs.docker.io]] for a full reference on the Dockerfile syntax. 
+
+* Docker - Build your Image [3]
+
+Dockerfiles need to build it:
+
+ docker build -t my-fancy-page ./res/ex2
+
+and run it:
+
+ docker run -it -p 8080:80 my-fancy-page:latest
+
+to reach the service the `-p` parameter is necessary. It forwards a local port into the container.
+
+* Demo: Boostrap a webserver with nginx

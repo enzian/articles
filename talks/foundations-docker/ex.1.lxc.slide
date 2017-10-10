@@ -1,0 +1,42 @@
+Containers Ex.1
+OS Virtualization with LXC
+15:04 20 Oct 2017
+Tags: containers, c#, dotnet, nginx, docker, lxc, virtualization
+
+Michael Ingold
+Software Engineer, Leuchter AG
+michael.ingold@leuchterag.ch
+http://michaelingold.ch/
+@michaelingold
+
+
+* Ex. 1 lxc
+
+* Prerequisites
+
+- VM with Ubuntu or any other Debian based OS.
+- install docker.io package
+- Terminal and some knowledge about how to use it.
+
+* Simple Container
+
+Start a container:
+ 
+ lxc launch ubuntu:16.10/adm64 c2
+
+Attach to a container:
+
+ lxc exec -n c2 bash
+
+List running containers:
+
+ lxc list
+
+
+
+* Resources
+
+.link https://stgraber.org/2016/03/11/lxd-2-0-blog-post-series-012/ [1] Blogpost series about LXC/LXD, St. Graber
+.link https://docs.docker.io/ [2] docker.io Reference
+
+
