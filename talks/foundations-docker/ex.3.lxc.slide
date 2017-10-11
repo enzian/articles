@@ -1,0 +1,43 @@
+Containers Ex.3
+A complete web hosting
+15:04 20 Oct 2017
+Tags: containers, c#, dotnet, nginx, docker, lxc, virtualization
+
+Michael Ingold
+Software Engineer, Leuchter AG
+michael.ingold@leuchterag.ch
+http://michaelingold.ch/
+@michaelingold
+
+
+* Ex. 3 web hosting
+
+* Prerequisites
+
+- Ubuntu or Windows host OS
+- install docker.io package
+- Terminal and some knowledge about how to use it.
+
+* A complete web hosting
+
+An average web hosting consists of at least two things - webserver that serves static html content from files and an ftp server to upload these files.
+
+We'll use docker compose to start all of these components with one command but first...
+
+- get the repository:
+
+    git clone https://github.com/enzian/docker-store
+    cd docker-store
+
+- then launch the composition:
+
+    docker-compose up
+
+
+
+* Resources
+
+.link https://docs.docker.com/compose/compose-file/ [1] docker.io full compose file reference
+.link https://docs.docker.com/ [2] docker.io Reference
+
+

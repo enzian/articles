@@ -117,4 +117,76 @@ and run it:
 
 to reach the service the `-p` parameter is necessary. It forwards a local port into the container.
 
-* Demo: Boostrap a webserver with nginx
+* Demo: Bootstrap a webserver with nginx
+
+* Compose
+
+- orchestrate multiple containers to form an application
+- map ports
+- mount volumes (also from the host) for multiple containers
+- collect logs per containers
+- manage state across multiple restarts of the composition.
+- simple file syntax that describes the composition
+
+* Compose [1]
+
+*docker-compose.yml:*
+
+  version: '3'
+  services:
+    zookeeper:
+      image: wurstmeister/zookeeper
+      ports:
+        - "2181:2181"
+    kafka:
+      image: wurstmeister/kafka:latest
+      ports:
+        - "9092:9092"
+      environment:
+        KAFKA_ADVERTISED_HOST_NAME: localhost
+        KAFKA_CREATE_TOPICS: "system.events:1:1"
+        KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      volumes:
+        - /var/run/docker.sock:/var/run/docker.sock
+    mongo:
+      image: mongo:latest
+      ports:
+        - "27017:27017"
+
+* Compose [2]
+
+The `docker-compose` tool looks in the current working directory for a `docker-compose.yml` file and uses this if not `-f`  parameter has been given.
+
+Start a composition:
+
+ docker-compose up
+
+Stop a composition:
+
+ docker-compose down
+
+Remove all persisted state:
+
+ docker-compose rm
+
+* Ex.3 A complete web hosting
+
+* Applications
+
+- Local development setups (start things like databases, messaging systems, etc.) that do not clutter the dev machine
+- Test different versions of components against each other.
+- Local test environments
+- Run tools like build agents etc.
+- Reproducible testing environments
+- ...
+
+* Outlook
+
+There are things docker itself cannot solve or insufficiently addresses:
+
+- scale and monitor application
+- manage Resources like storage
+- networking outside localhost
+- hard hypervisor based isolation.
+
+This where orchestration tools like *Kubernetes* bridge the gap!
