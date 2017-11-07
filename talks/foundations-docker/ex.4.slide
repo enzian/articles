@@ -1,0 +1,44 @@
+Containers Ex.4
+Run a dotnet core webapp
+15:04 20 Oct 2017
+Tags: containers, c#, dotnet, nginx, docker, lxc, virtualization
+
+Michael Ingold
+Software Engineer, Leuchter AG
+michael.ingold@leuchterag.ch
+http://michaelingold.ch/
+@michaelingold
+
+
+* Ex. 4 web hosting
+
+* Prerequisites
+
+- Ubuntu or Windows host OS
+- install docker.io package
+- install dotnet core sdk
+- Terminal and some knowledge about how to use it.
+
+* Assignment
+
+The goal of this exercise is to build a fully functional dotnet core webapp, that runs as a docker container. It must at least:
+
+- accept an HTTP request on any (one) port.
+- It must return some data (json or any other sensible format)
+- Read this data from a database
+
+If you have time you can additionally:
+
+- send data to a metrics server (for example: influxdb[3]) using AppMetrics[1,2] and display it using a UI (for example: Grafana[4])
+
+* Resources
+
+.link https://github.com/AppMetrics/AppMetrics [1] App Metrics reference
+.link https://github.com/AppMetrics/InfluxDB [2] App Metrics influx-db extension
+.link https://hub.docker.com/_/influxdb/ [3] Influx DB Docker Image and Reference
+.link https://hub.docker.com/r/grafana/grafana/ [4] Influx DB Docker Image and Reference
+
+.link https://docs.docker.com/compose/compose-file/ [3] docker.io full compose file reference
+.link https://docs.docker.com/ [2] docker.io Reference
+
+
