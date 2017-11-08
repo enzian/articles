@@ -21,7 +21,7 @@ http://michaelingold.ch/
 
 * Assignment
 
-The goal of this exercise is to build a fully functional dotnet core webapp, that runs as a docker container. It must at least:
+The goal of this exercise is to build a fully functional *dotnet*core*webapp*[5], that runs as a *docker*container*. It must at least:
 
 - accept an HTTP request on any (one) port.
 - It must return some data (json or any other sensible format)
@@ -38,7 +38,9 @@ If you have time you can additionally:
 .link https://hub.docker.com/_/influxdb/ [3] Influx DB Docker Image and Reference
 .link https://hub.docker.com/r/grafana/grafana/ [4] Influx DB Docker Image and Reference
 
-.link https://docs.docker.com/compose/compose-file/ [3] docker.io full compose file reference
-.link https://docs.docker.com/ [2] docker.io Reference
+.link https://docs.microsoft.com/en-us/aspnet/core/tutorials/web-api-vsc [5] Simple Web Api with Dotnet Core
+
+.link https://docs.docker.com/compose/compose-file/ [6] docker.io full compose file reference
+.link https://docs.docker.com/ [7] docker.io Reference
 
 

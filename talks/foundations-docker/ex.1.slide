@@ -15,14 +15,14 @@ http://michaelingold.ch/
 * Prerequisites
 
 - VM with Ubuntu or any other Debian based OS.
-- install docker.io package
+- install lxd & lxc
 - Terminal and some knowledge about how to use it.
 
 * Simple Container
 
 Start a container:
  
- lxc launch ubuntu:16.10/adm64 c2
+ lxc launch ubuntu:16.10/amd64 c2
 
 Attach to a container:
 
@@ -32,7 +32,19 @@ List running containers:
 
  lxc list
 
+* Simple Container
 
+Attach to a container:
+
+ lxc exec -n c2 bash
+
+Install nginx:
+
+ sudo apt install nginx
+
+and call the webserver:
+
+ curl c2
 
 * Resources
 

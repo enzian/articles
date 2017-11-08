@@ -119,6 +119,10 @@ to reach the service the `-p` parameter is necessary. It forwards a local port i
 
 * Demo: Bootstrap a webserver with nginx
 
+* Ex 2: A webserver with nginx
+
+* Docker-Compose
+
 * Compose
 
 - orchestrate multiple containers to form an application
