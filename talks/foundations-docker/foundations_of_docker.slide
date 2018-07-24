@@ -71,12 +71,11 @@ Host and guest share specific system (usually the kernel) resources.
 - LXC, OpenVz, Solaris Zones, etc.
 
 
+* Demo: OS-Virtualization with lxc
+
 * OS Virtualization with Docker
 
 .image res/docker-virt.png _ 900
-
-* Demo: OS-Virtualization with lxc
-
 
 * 
 .image res/quote2.png _ 900
@@ -94,7 +93,14 @@ Docker is a collection of tools for virtualization:
 
 .image res/docker-virt.png _ 900
 
-* Docker - Image format [2]
+* Docker [1]
+
+Run a simple container with Docker:
+
+ docker run -it -p 8080:80 nginx
+ docker run  -p 8080:80 nginx
+
+* Docker - Image format [3]
 
 *FROM*: Provide a base image.
 *COPY*: Copy file form a local directory into the container
@@ -105,7 +111,7 @@ Docker is a collection of tools for virtualization:
 
 Go to [[https://docs.docker.com/engine/reference/builder/][docs.docker.io]] for a full reference on the Dockerfile syntax. 
 
-* Docker - Build your Image [3]
+* Docker - Build your Image [4]
 
 Dockerfiles need to build it:
 

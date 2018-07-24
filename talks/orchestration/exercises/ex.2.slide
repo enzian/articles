@@ -1,0 +1,22 @@
+Guestbook App Ex.2
+Deploy the Guestbook demoapp on Kubernetes
+15:04 23 Jul 2018
+Tags: containers, kubernetes, os-virt, docker,
+
+Michael Ingold
+Software Engineer, Leuchter AG
+michael.ingold@leuchterag.ch
+http://michaelingold.ch/
+@michaelingold
+
+
+* Ex. 2
+
+* Prerequisites
+
+- Your own Kubernetes Cluster from Ex 1.
+- and a working kubectl configuration.
+
+* Deploy the guestbook sample
+
+Follow the [[https://kubernetes.io/docs/tutorials/stateless-application/guestbook/][Kubernetes Guide]] to install the PHP guestbook sample application

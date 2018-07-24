@@ -1,0 +1,41 @@
+Kubernetes Cluster on Azure Ex.1
+Orchestration of Apps on Kubernetes
+15:04 23 Jul 2018
+Tags: containers, kubernetes, os-virt, docker,
+
+Michael Ingold
+Software Engineer, Leuchter AG
+michael.ingold@leuchterag.ch
+http://michaelingold.ch/
+@michaelingold
+
+
+* Ex. 1
+
+* Prerequisites
+
+- Your own personal azure subscription (create one [[https://azure.microsoft.com/en-us/free/][here]])
+- install the windows binaries for kubectl as described [[https://kubernetes.io/docs/tasks/tools/install-kubectl/#install-with-powershell-from-psgallery][here]]
+- Installed Azure CLI as describe [[https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest][here]]
+
+* Create a new Cluster
+
+1. go to the Azure portal for your new subscription
+2. Click `Create a Resource` in the top left corner
+3. Search and select `Kubernetes Service` and hit `Create`
+4. Select your subscription, add the name for a new resource group (pick something unique like your name or handle) and use the same value for the cluster name and DNS name prefix. Create the cluster in the geographic zone you prefer and select the newest K8S version available.
+5. Click `Next: Authentication` and enable RBAC.
+6. Click `Next: Networking`, disable HTTP application routing and the basic network configuration
+7. Click `Next: Monitoring` and disable any monitoring options (you won't need them for this sample)
+8. ClicK `Review and Create` then hit `Create` when all checks have terminated!
+9. Wait for the deployment to complete (this takes quite a while)
+
+* Create a new Cluster [1]
+
+After the deployment has completed:
+
+1. Navigate to your newly create resource group and select the new Kubernetes-Service.
+2. Use the CLI to Authenticate with Azure AD: `az login`
+3. Get the credentials from your new cluster: `az aks get-credentials --resource-group <resourcegroup> --name <nameofcluster>`. The will add the service-users credentials to you `~/.kube/config` file.
+4. List all nodes in your cluster: `kubectl get nodes`
+This should return a list of three nodes. If it throws an error your probably failed to get the correct credentials for your new cluster.

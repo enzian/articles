@@ -1,0 +1,708 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>reveal.js</title>
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/solarized.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<script src="lib/js/anime.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section id="title">
+                    |<h1>Container Orchestration with Kubernetes</h1>|
+                </section>
+				<section>
+                    <h2>Roadmap</h2>
+                    <ul>
+                        <li>An Argument for Orchestration</li>
+                        <li>Kubernetes</li>
+                        <li>Ex. 1: Webhosting</li>
+                    </ul>
+                </section>
+                <section>
+					<h1>Orchestration</h1>
+					<div class="fragment" data-fragment-index="1">
+						<div style="text-align: left; background-color: rgb(17, 17, 17); width: 400%; height: 4000%; position: absolute; top: -150%; left: -150%; opacity: 0.8;">
+						</div>
+						<h1 style="font-weight: bold; position: absolute; top: 95%; right: 0px;">
+							<font color="#66AF2A">but why?</font>
+						</h1>
+					</div>
+				</section>
+                <section data-background-color="#000000" data-transition-speed="fast">
+					<div style="text-align: left; background-color: #66AF2A; width: 50000%; height: 10000%; position: absolute; top: -150%; left: 55%; opacity: 0.8; z-index: -1000;">
+					</div>
+					<div>
+						<h1 style="text-align: left">We know</h1>
+					</div>
+					<div style="color: whitesmoke;">
+						<div style="width: 50%; display: inline-block; margin-right: 5%; vertical-align: top;" class="fragment" >
+							<p style="text-align: right;">
+								<b>Dependencies</b>
+							</p>
+						</div>
+						<div style="width: 40%; display: inline-block;" class="fragment" >
+							<p style="text-align: left; font-weight: bold;">
+								static
+							</p>
+						</div>
+					</div>
+					<div style="color: whitesmoke;">
+						<div style="width: 50%; display: inline-block; margin-right: 5%; vertical-align: top;" class="fragment" >
+							<p style="text-align: right;">
+								<b>State</b>
+							</p>
+						</div>
+						<div style="width: 40%; display: inline-block;" class="fragment" >
+							<p style="text-align: left; font-weight: bold;">
+								normalized, centralized
+							</p>
+						</div>
+					</div>
+					<div style="color: whitesmoke;">
+						<div style="width: 50%; display: inline-block; margin-right: 5%; vertical-align: top;" class="fragment" >
+							<p style="text-align: right;">
+								<b>Networks</b>
+							</p>
+						</div>
+						<div style="width: 40%; display: inline-block;" class="fragment" >
+							<p style="text-align: left; font-weight: bold;">
+								wired
+							</p>
+						</div>
+					</div>
+					<div style="color: whitesmoke;">
+						<div style="width: 50%; display: inline-block; margin-right: 5%; vertical-align: top;" class="fragment" >
+							<p style="text-align: right;">
+								<b>Software Architecture</b>
+							</p>
+						</div>
+						<div style="width: 40%; display: inline-block;" class="fragment" >
+							<p style="text-align: left; font-weight: bold;">
+								monolythic
+							</p>
+						</div>
+					</div>
+				</section>
+				<section data-background-color="#000000" data-transition-speed="fast">
+					<div style="text-align: left; background-color: #66AF2A; width: 50000%; height: 10000%; position: absolute; top: -150%; left: 55%; opacity: 0.8; z-index: -1000;">
+					</div>
+					<div>
+						<h1 style="text-align: left">when actually</h1>
+					</div>
+					<div style="color: whitesmoke;">
+						<div style="width: 50%; display: inline-block; margin-right: 5%; vertical-align: top;" class="fragment" >
+							<p style="text-align: right;">
+								<b>Dependencies</b>
+							</p>
+						</div>
+						<div style="width: 40%; display: inline-block;" class="fragment" >
+							<p style="text-align: left; font-weight: bold;">
+								change
+							</p>
+						</div>
+					</div>
+					<div style="color: whitesmoke;">
+						<div style="width: 50%; display: inline-block; margin-right: 5%; vertical-align: top;" class="fragment" >
+							<p style="text-align: right;">
+								<b>State</b>
+							</p>
+						</div>
+						<div style="width: 40%; display: inline-block;" class="fragment" >
+							<p style="text-align: left; font-weight: bold;">
+								shared, distributed
+							</p>
+						</div>
+					</div>
+					<div style="color: whitesmoke;">
+						<div style="width: 50%; display: inline-block; margin-right: 5%; vertical-align: top;" class="fragment" >
+							<p style="text-align: right;">
+								<b>Networks</b>
+							</p>
+						</div>
+						<div style="width: 40%; display: inline-block;" class="fragment" >
+							<p style="text-align: left; font-weight: bold;">
+								unreliable
+							</p>
+						</div>
+					</div>
+					<div style="color: whitesmoke;">
+						<div style="width: 50%; display: inline-block; margin-right: 5%; vertical-align: top;" class="fragment" >
+							<p style="text-align: right;">
+								<b>Software Architecture</b>
+							</p>
+						</div>
+						<div style="width: 40%; display: inline-block;" class="fragment" >
+							<p style="text-align: left; font-weight: bold;">
+							distributed
+							</p>
+						</div>
+					</div>
+				</section>
+				
+				<section style="top: 259.5px; display: block;" id="text-slide">
+					
+					<p class="fragment" style="text-align: left; margin: 0" data-fragment-index="0">
+						<b>this changes the way we</b>
+					</p>
+					<h2 style="text-align: left; margin: 0" class="fragment" data-fragment-index="0">
+						<b>build application</b>
+					</h2>
+					<br/>
+					<div style="text-align: right" class="fragment" data-fragment-index="1"  id="emphasized">
+						<p style="margin: 0; color: #fdf6e3" >
+							<b style="background: #586e75; padding-left: 0.2em; padding-right: 0.2em">but not how we</b>
+						</p>
+						<h2 style="margin: 0; color: #fdf6e3">
+							<b style="background: #586e75; padding-left: 0.2em; padding-right: 0.2em">run them?!?</b>
+						</h2>
+					</div>
+					<!-- <script>
+
+						Reveal.addEventListener( 'somestate', function() {
+							var el = document.querySelector('#text-slide #emphasized');
+
+							var domNode = anime({
+							targets: el,
+							translateX: 500,
+							delay: function(el, i, l) {
+								return i * 1000;
+							}
+							});
+						}, false );
+						
+					</script> -->
+				</section>
+				<section>
+					<img src="res/sample-app.svg" style="border: none;"/>
+					<span class="fragment" data-fragment-index="0" style="padding: 0.2em; background: rgba(0, 0, 0, 0.75); color: #66AF2A ; display: block; position: absolute; font-size: 0.5em; top: 56.5%; right: 25.7%; border-radius: 0.2em;">container</span>
+					<span class="fragment" data-fragment-index="1" style="padding: 0.2em; background: rgba(0, 0, 0, 0.75); color: #66AF2A ; display: block; position: absolute; font-size: 0.5em; top: 56.5%; right: 38.75%; border-radius: 0.2em;">container</span>
+					<span class="fragment" data-fragment-index="2" style="padding: 0.2em; background: rgba(0, 0, 0, 0.75); color: #66AF2A ; display: block; position: absolute; font-size: 0.5em; top: 56.5%; right: 51.5%; border-radius: 0.2em;">container</span>
+					<span class="fragment" data-fragment-index="3" style="padding: 0.2em; background: rgba(0, 0, 0, 0.75); color: #66AF2A ; display: block; position: absolute; font-size: 0.5em; top: 56.5%; right: 64.25%; border-radius: 0.2em;">container</span>	
+					<span class="fragment" data-fragment-index="4" style="padding: 0.2em; background: rgba(0, 0, 0, 0.75); color: #66AF2A ; display: block; position: absolute; font-size: 0.5em; top: 28.5%; right: 53.25%; border-radius: 0.2em;">network</span>
+					<span class="fragment" data-fragment-index="5" style="padding: 0.2em; background: rgba(0, 0, 0, 0.75); color: #66AF2A ; display: block; position: absolute; font-size: 0.5em; top: 18.75%; right: 34%; border-radius: 0.2em;">load balancer</span>
+					<span class="fragment" data-fragment-index="6" style="padding: 0.2em; background: rgba(0, 0, 0, 0.75); color: #66AF2A ; display: block; position: absolute; font-size: 0.5em; top: 68.75%; right: 27.5%; border-radius: 0.2em;">database</span>
+					<span class="fragment" data-fragment-index="7" style="padding: 0.2em; background: rgba(0, 0, 0, 0.75); color: #66AF2A ; display: block; position: absolute; font-size: 0.5em; top: 68.75%; right: 63.5%; border-radius: 0.2em;">database</span>
+					<span class="fragment" data-fragment-index="8" style="padding: 0.2em; background: rgba(0, 0, 0, 0.75); color: #66AF2A ; display: block; position: absolute; font-size: 0.5em; top: 78.75%; right: 25.5%; border-radius: 0.2em;">volume</span>
+					<span class="fragment" data-fragment-index="9" style="padding: 0.2em; background: rgba(0, 0, 0, 0.75); color: #66AF2A ; display: block; position: absolute; font-size: 0.5em; top: 78.75%; right: 66.5%; border-radius: 0.2em;">volume</span>
+					<span class="fragment" data-fragment-index="10" style="padding: 0.2em; background: rgba(0, 0, 0, 0.75); color: #66AF2A ; display: block; position: absolute; font-size: 0.5em; top: 20%; right: 10%; border-radius: 0.5em; transform: rotate(20deg)">network-policies</span>
+					<span class="fragment" data-fragment-index="11" style="padding: 0.2em; background: rgba(0, 0, 0, 0.75); color: #66AF2A ; display: block; position: absolute; font-size: 0.8em; top: 30%; right: 80%; border-radius: 0.5em; transform: rotate(30deg)">backups</span>
+					
+					<span class="fragment" data-fragment-index="12" style="padding: 0.2em; background: rgba(0, 0, 0, 0.75); color: #66AF2A ; display: block; position: absolute; font-size: 0.8em; top: 50%; right: 75%; border-radius: 0.5em; transform: rotate(-20deg)">health-checks</span>
+					
+					<span class="fragment" data-fragment-index="13" style="padding: 0.2em; background: rgba(0, 0, 0, 0.75); color: #66AF2A ; display: block; position: absolute; font-size: 0.8em; top: 50%; right: 7%; border-radius: 0.5em; transform: rotate(-40deg)">monitoring</span>
+					
+					<span class="fragment" data-fragment-index="14" style="padding: 0.2em; background: rgba(0, 0, 0, 0.75); color: #66AF2A ; display: block; position: absolute; font-size: 0.7em; top: 20%; right: 60%; border-radius: 0.5em; transform: rotate(-20deg)">desaster recovery</span>
+					
+					<span class="fragment" data-fragment-index="15" style="padding: 0.2em; background: rgba(0, 0, 0, 0.75); color: #66AF2A ; display: block; position: absolute; font-size: 0.9em; top: 70%; right: 75%; border-radius: 0.5em; transform: rotate(10deg)">service <br /> discovery</span>
+					
+					<span class="fragment" data-fragment-index="16" style="padding: 0.2em; background: rgba(0, 0, 0, 0.75); color: #66AF2A ; display: block; position: absolute; font-size: 0.8em; top: 70%; right: 8%; border-radius: 0.5em; transform: rotate(-10deg)">metrics</span>
+
+					<div class="fragment" data-fragment-index="17" style="position: absolute; top: 0%; left: 0%; width: 50%; height: 50%; background: rgba(0, 0, 0, 0.85)">
+						<img src="res/aws.png"/>
+					</div>
+					<div class="fragment" data-fragment-index="17" style="position: absolute; top: 0%; left: 50%; width: 50%; height: 50%; background: rgba(0, 0, 0, 0.85)">
+						<img src="res/azure.png"/>
+					</div>
+					<div class="fragment" data-fragment-index="17" style="position: absolute; top: 50%; left: 0%; width: 50%; height: 50%; background: rgba(0, 0, 0, 0.85)">
+						<img src="res/goolecloud.png"/>
+					</div>
+					<div class="fragment" data-fragment-index="17" style="position: absolute; top: 50%; left: 50%; width: 50%; height: 50%; background: rgba(0, 0, 0, 0.85)">
+						<img src="res/onprem.png"/>
+					</div>
+				</section>
+				<section>
+					<p class="fragment" style="text-align: left; margin: 0" data-fragment-index="0">
+							<b>this is too much</b>
+					</p>
+					<h2 style="text-align: left; margin: 0" class="fragment" data-fragment-index="0">
+						<b>to handle</b>
+					</h2>
+					<br/>
+					<div style="text-align: right" class="fragment" data-fragment-index="1"  id="emphasized">
+						<p style="margin: 0; color: #fdf6e3" >
+							<b style="background: #586e75; padding-left: 0.2em; padding-right: 0.2em">we might</b>
+						</p>
+						<h2 style="margin: 0; color: #fdf6e3">
+							<b style="background: #586e75; padding-left: 0.2em; padding-right: 0.2em">need some help</b>
+						</h2>
+					</div>
+				</section>
+				<section>
+					<p style="text-align: left; margin: 0; text-align: justify">
+						<span style="font-size: 1.2em; text-transform: uppercase">there is <span style="font-size: 2.0em">no</span> <span style="font-size: 1.4em">problem</span>, that <span style="font-size: 1.5em">could not</span> be <span style="font-size: 1.7em">solved</span> by <span style="font-size: 1.3em">another</span> <span style="font-size: 1.8em">layer</span> of <span style="font-size: 1.5em">abstraction</span>.</span>
+						
+					</p>
+					<p style="text-align: left">source: the unknown genius</p>
+				</section>
+				<section>
+					<img style="width: 80%;" src="res/kubernetes-platform.svg"/>
+				</section>
+				<section>
+					<div style="background-color: #D33682">
+						<h1>Kubernetes</h1>
+						<h1>Deep-Dive</h1>
+					</div>
+					<p style="font-size: 0.6em">this slide is uniquely designed to wake you up by hurting your eyes!</p>
+				</section>
+				<section>
+					<h1>things Kubernetes does for you:</h1>
+					<ul>
+						<li class="fragment">help you keep your apps alive</li>
+						<li class="fragment">manage resources for you apps</li>
+					</ul>
+				</section>
+				<section>
+					<h1>things Kubernetes does NOT do:</h1>
+					<ul>
+						<li class="fragment">solve your bugs</li>
+						<li class="fragment">make unreliable apps reliable</li>
+						<li class="fragment">or unscalable apps scalable</li>
+					</ul>
+				</section>
+				<section>
+					<img src="res/Chart_02_Kubernetes-Architecture.png"/>
+				</section>
+				<section>
+					<img src="res/Kubernetes-1.png"/>
+				</section>
+				
+				<section>
+					<h2>K8S Resource Management</h2>
+					<ul>
+						<li>Resources can be pushed through the CLI as yaml/json files</li>
+						<li>Pushed definitions represent the definition of what SHOULD be present.</li>
+						<li>K8S` reconciliation loops will continuously attempt the bring specification and reality into balance</li>
+					</ul>
+				</section>
+
+				<section data-background-color="#000000" data-transition-speed="fast">
+					<div style="text-align: left; background-color: #66AF2A; width: 50000%; height: 10000%; position: absolute; top: -150%; left: 50%; opacity: 0.8; z-index: -1000;">
+					</div>
+					<div>
+						<h2 style="text-align: left">Pods</h2>
+					</div>
+					<div style="color: whitesmoke; display: grid; grid-template-columns: 50% 50%; grid-column-gap: 15px; height: 55%;">
+						<div style="grid-column-start: 1; grid-column-end: 1">
+							<pre style="font-size: 0.4em; background: transparent;"><code style="background: transparent; overflow: visible;" data-trim data-noescape>
+apiVersion: v1
+kind: Pod
+metadata:
+  name: memory-demo
+  namespace: mem-example
+spec:
+  containers:
+  - name: memory-demo-ctr
+    image: polinux/stress
+    resources:
+      limits:
+      memory: "200Mi"
+      requests:
+      memory: "100Mi"
+    command: ["stress"]
+    args:
+    - "--vm"
+    - "1"
+    - "--vm-bytes"
+    - "150M"
+    - "--vm-hang"
+    - "1"
+							</code></pre>
+						</div>
+						<div style="grid-column-start: 2; grid-column-end: 2; text-align: left; font-size: 0.7em;">
+							<p>
+								<ul>
+									<li class="fragment">are the lowest abstraction of work scheduled by Kubernetes</li>
+									<li class="fragment">can container one or more containers (docker or other runtimes) running in them</li>
+									<li class="fragment">can mount storage, have resource limits, have their own IP address</li>
+									<li class="fragment">within it, containers can reach each other via <code>localhost</code></li>
+									<li class="fragment">are scheduled on a single node</li>
+									<li class="fragment">processes can be executed in their context</li>
+								</ul>
+							</p>
+						</div>
+					</div>
+				</section>
+				
+				<section data-background-color="#000000" data-transition-speed="fast">
+						<div style="text-align: left; background-color: #66AF2A; width: 50000%; height: 10000%; position: absolute; top: -150%; left: 50%; opacity: 0.8; z-index: -1000;">
+						</div>
+						<div>
+							<h2 style="text-align: left">Deployments</h2>
+						</div>
+						<div style="color: whitesmoke; display: grid; grid-template-columns: 50% 50%; grid-column-gap: 15px; height: 55%;">
+							<div style="grid-column-start: 1; grid-column-end: 1">
+								<pre style="font-size: 0.4em; background: transparent;"><code style="background: transparent; overflow: visible;" data-trim data-noescape>
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  labels:
+  app: nginx
+spec:
+  replicas: 3
+  selector:
+  matchLabels:
+    app: nginx
+  template:
+  metadata:
+    labels:
+    app: nginx
+  spec:
+    containers:
+    - name: nginx
+	  image: nginx:1.7.9
+	  ports:
+      - containerPort: 80
+										
+							</code></pre>
+						</div>
+						<div style="grid-column-start: 2; grid-column-end: 2; text-align: left; font-size: 0.7em;">
+							<p>
+								<ul>
+									<li class="fragment">represents a set of similar pods that are created according to the <code>spec.tempalte</code> section</li>
+									<li class="fragment">they can be scaled up/down by adjusting <code>spec.replicas</code></li>
+									<li class="fragment">can run rolling upgrades by shutting down old versions of pods and start new ones</li>
+									<li class="fragment">when pods matching a deployment die - they will be replaced</li>
+								</ul>
+							</p>
+						</div>
+					</div>
+				</section>
+				<section data-background-color="#000000" data-transition-speed="fast">
+						<div style="text-align: left; background-color: #66AF2A; width: 50000%; height: 10000%; position: absolute; top: -150%; left: 50%; opacity: 0.8; z-index: -1000;">
+						</div>
+						<div>
+							<h2 style="text-align: left">Services</h2>
+						</div>
+						<div style="color: whitesmoke; display: grid; grid-template-columns: 50% 50%; grid-column-gap: 15px; height: 55%;">
+							<div style="grid-column-start: 1; grid-column-end: 1">
+								<pre style="font-size: 0.4em; background: transparent;"><code class="yaml" style="background: transparent; overflow: visible;" data-trim data-noescape>
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-nginx
+  labels:
+    run: my-nginx
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+  selector:
+    run: my-nginx
+										
+							</code></pre>
+						</div>
+						<div style="grid-column-start: 2; grid-column-end: 2; text-align: left; font-size: 0.7em;">
+							<p>
+								<ul>
+									<li class="fragment">connect applications via DNS</li>
+									<li class="fragment">they load-balance and proxy traffic to all pods matching the selector in <code>spec.selector</code></li>
+									<li class="fragment">come in three flavors: <code>ClusterIP</code, <code>LoadBalancer</code> or <code>NodePort</code></li>
+									<li class="fragment">Cloud providers often tap into these entities to provide access through their firewalls & load balancers when type is set to <code>LoadBalancer</code>.</li>
+								</ul>
+							</p>
+						</div>
+					</div>
+				</section>
+				<section data-background-color="#000000" data-transition-speed="fast">
+						<div style="text-align: left; background-color: #66AF2A; width: 50000%; height: 10000%; position: absolute; top: -150%; left: 50%; opacity: 0.8; z-index: -1000;">
+						</div>
+						<div>
+							<h2 style="text-align: left">Config Maps</h2>
+						</div>
+						<div style="color: whitesmoke; display: grid; grid-template-columns: 50% 50%; grid-column-gap: 15px; height: 55%;">
+							<div style="grid-column-start: 1; grid-column-end: 1">
+								<pre style="font-size: 0.4em; background: transparent;"><code class="yaml" style="background: transparent; overflow: visible;" data-trim data-noescape>
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: game-config
+  namespace: default
+data:
+  game.properties: |
+    enemies=aliens
+    lives=3
+    enemies.cheat=true
+    enemies.cheat.level=noGoodRotten
+    secret.code.passphrase=UUDDLRLRBABAS
+    secret.code.allowed=true
+    secret.code.lives=30
+  ui.properties: |
+    color.good=purple
+    color.bad=yellow
+    allow.textmode=true
+    how.nice.to.look=fairlyNice	
+							</code></pre>
+						</div>
+						<div style="grid-column-start: 2; grid-column-end: 2; text-align: left; font-size: 0.7em;">
+							<p>
+								<ul>
+									<li class="fragment">are used to supply configuration to pods</li>
+									<li class="fragment">are mounted as files into containers (mount location can be defined)</li>
+									<li class="fragment">separate configuration from container image information</li>
+									<li class="fragment">when changed, pods retain their original copy of the configuration until restarted (immutability)</li>
+								</ul>
+							</p>
+						</div>
+					</div>
+				</section>
+				<section data-background-color="#000000" data-transition-speed="fast">
+						<div style="text-align: left; background-color: #66AF2A; width: 50000%; height: 10000%; position: absolute; top: -150%; left: 50%; opacity: 0.8; z-index: -1000;">
+						</div>
+						<div>
+							<h2 style="text-align: left">Stateful Sets</h2>
+						</div>
+						<div style="color: whitesmoke; display: grid; grid-template-columns: 50% 50%; grid-column-gap: 15px; height: 55%;">
+							<div style="grid-column-start: 1; grid-column-end: 1">
+								<pre style="font-size: 0.4em; background: transparent;"><code class="yaml" style="background: transparent; overflow: visible;" data-trim data-noescape>
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: web
+spec:
+  selector: [...]
+  replicas: 3 
+  template:
+    metadata: [...]
+    spec:
+      containers:
+      - name: nginx
+        image: k8s.gcr.io/nginx-slim:0.8
+        ports:
+        - containerPort: 80
+          name: web
+        volumeMounts:
+        - name: www
+          mountPath: /usr/share/nginx/html
+  volumeClaimTemplates:
+  - spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: "local-ssd"
+      resources:
+        requests:
+          storage: 1Gi
+							</code></pre>
+						</div>
+						<div style="grid-column-start: 2; grid-column-end: 2; text-align: left; font-size: 0.7em;">
+							<p>
+								<ul>
+									<li class="fragment">are very similar to deployments</li>
+									<li class="fragment">are used to manage containers with persistent storage requirements (like databases etc.)</li>
+									<li class="fragment">contain a template of how volumes should be commissioned and mounted</li>
+									<li class="fragment">these volumes are mounted to the node in which the pod is started and are hard to move</li>
+									<li class="fragment">K8S will attempt to restart crashed stateful pods on the same physical node!</li>
+								</ul>
+							</p>
+						</div>
+					</div>
+				</section>
+				<section data-background-color="#000000" data-transition-speed="fast">
+						<div style="text-align: left; background-color: #66AF2A; width: 50000%; height: 10000%; position: absolute; top: -150%; left: 50%; opacity: 0.8; z-index: -1000;">
+						</div>
+						<div>
+							<h2 style="text-align: left">Stateful Sets</h2>
+						</div>
+						<div style="color: whitesmoke; display: grid; grid-template-columns: 50% 50%; grid-column-gap: 15px; height: 55%;">
+							<div style="grid-column-start: 1; grid-column-end: 1">
+								<pre style="font-size: 0.4em; background: transparent;"><code class="yaml" style="background: transparent; overflow: visible;" data-trim data-noescape>
+apiVersion: extensions/v1beta1
+kind: DaemonSet
+metadata:
+  name: ingress
+spec:
+  template:
+    metadata:
+      labels:
+        app: ingress-app
+    spec:
+      nodeSelector:
+        app: ingress-node
+      containers:
+        - name: webserver
+          image: nginx
+          ports:
+           - containerPort: 80
+							</code></pre>
+						</div>
+						<div style="grid-column-start: 2; grid-column-end: 2; text-align: left; font-size: 0.7em;">
+							<p>
+								<ul>
+									<li class="fragment">are very similar to deployments</li>
+									<li class="fragment">run the specified pod on every K8S node which matches the condition in <code>spec.template.spec.nodeSelector</code></li>
+									<li class="fragment">are automatically deployed on new nodes that join the cluster</li>
+									<li class="fragment">often used to run custom ingress servers or log-forwarders (like Telegraf or Logstash)</li>
+								</ul>
+							</p>
+						</div>
+					</div>
+				</section>
+				<section data-background-color="#000000" data-transition-speed="fast">
+						<div style="text-align: left; background-color: #66AF2A; width: 50000%; height: 10000%; position: absolute; top: -150%; left: 50%; opacity: 0.8; z-index: -1000;">
+						</div>
+						<div>
+							<h2 style="text-align: left">Ingress</h2>
+						</div>
+						<div style="color: whitesmoke; display: grid; grid-template-columns: 50% 50%; grid-column-gap: 15px; height: 55%;">
+							<div style="grid-column-start: 1; grid-column-end: 1">
+								<pre style="font-size: 0.35em; background: transparent;"><code class="yaml" style="background: transparent; overflow: visible;" data-trim data-noescape>
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: test-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /testpath
+        backend:
+          serviceName: test
+          servicePort: 80
+							</code></pre>
+						</div>
+						<div style="grid-column-start: 2; grid-column-end: 2; text-align: left; font-size: 0.7em;">
+							<p>
+								<ul>
+									<li class="fragment">dispatch traffic through cloud-vendor specific load-balancers into you cluster and forward it to the right services/pods</li>
+									<li class="fragment">Routes Layer-7 traffic</li>
+									<li class="fragment">can be used to proxy http requests of the same domain to different services</li>
+									<li class="fragment">various K8S-compatible ingress controllers are available (nginx, haproxy, kong etc.)</li>
+									<li class="fragment">features like URL-rewriting depend on the implentation of the ingress controller</li>
+								</ul>
+							</p>
+						</div>
+					</div>
+				</section>
+				<section data-background-color="#000000" data-transition-speed="fast">
+					<div style="text-align: left; background-color: #66AF2A; width: 50000%; height: 10000%; position: absolute; top: -150%; left: 55%; opacity: 0.8; z-index: -1000;">
+					</div>
+					<div>
+						<h1 style="text-align: left">Kubernetes CLI [1]</h1>
+					</div>
+					<div style="color: whitesmoke;" class="fragment">
+						<div style="width: 50%; display: inline-block; margin-right: 5%; vertical-align: top;">
+							<pre style="background: transparent;"><code style="background: transparent; overflow: visible;" data-trim data-noescape># <mark>kubectl get</mark> [nodes | pods |...] </code></pre>
+						</div>
+						<div style="width: 40%; display: inline-block; font-size: 0.6em">
+							<p style="text-align: left; font-weight: bold;">
+								Read all resources of a given type in the <code>default</code> namespace
+							</p>
+						</div>
+					</div>
+					<div style="color: whitesmoke;" class="fragment">
+						<div style="width: 50%; display: inline-block; margin-right: 5%; vertical-align: top;">
+							<pre style="background: transparent;"><code style="background: transparent; overflow: visible;" data-trim data-noescape># kubectl <mark>-n test</mark> get all</code></pre>
+						</div>
+						<div style="width: 40%; display: inline-block; font-size: 0.6em" >
+							<p style="text-align: left; font-weight: bold;">
+								Get all resources in the <code>test</code> namespace
+							</p>
+						</div>
+					</div>
+					<div style="color: whitesmoke;" class="fragment">
+						<div style="width: 50%; display: inline-block; margin-right: 5%; vertical-align: top;">
+							<pre style="background: transparent;"><code style="background: transparent; overflow: visible;" data-trim data-noescape># kubectl apply <mark>-f resource.yml</mark></code></pre>
+						</div>
+						<div style="width: 40%; display: inline-block;">
+							<p style="text-align: left; font-weight: bold; font-size: 0.6em">
+								create, update or patch any resource by name in file <code>resource.yaml</code>
+							</p>
+						</div>
+					</div>
+					<div style="color: whitesmoke;" class="fragment">
+						<div style="width: 50%; display: inline-block; margin-right: 5%; vertical-align: top;">
+							<pre style="background: transparent;"><code style="background: transparent; overflow: visible;" data-trim data-noescape># kubectl logs <mark>podA</mark></code></pre>
+						</div>
+						<div style="width: 40%; display: inline-block;">
+							<p style="text-align: left; font-weight: bold; font-size: 0.6em">
+								dump the logs of <code>podA</code> to the CLI
+							</p>
+						</div>
+					</div>
+				</section>
+				<section data-background-color="#000000" data-transition-speed="fast">
+					<div style="text-align: left; background-color: #66AF2A; width: 50000%; height: 10000%; position: absolute; top: -150%; left: 55%; opacity: 0.8; z-index: -1000;">
+					</div>
+					<div>
+						<h1 style="text-align: left">Kubernetes CLI [1]</h1>
+					</div>
+					<div style="color: whitesmoke;" class="fragment">
+						<div style="width: 50%; display: inline-block; margin-right: 5%; vertical-align: top;">
+							<pre style="background: transparent;"><code style="background: transparent; overflow: visible;" data-trim data-noescape># kubectl <mark>config get-contexts</mark></code></pre>
+						</div>
+						<div style="width: 40%; display: inline-block; font-size: 0.6em">
+							<p style="text-align: left; font-weight: bold;">
+								show all contexts in the users local <code>~/.kube/config</code> file
+							</p>
+						</div>
+					</div>
+					<div style="color: whitesmoke;" class="fragment">
+						<div style="width: 50%; display: inline-block; margin-right: 5%; vertical-align: top;">
+							<pre style="background: transparent;"><code style="background: transparent; overflow: visible;" data-trim data-noescape># kubectl <mark>describe service</mark> svcA</code></pre>
+						</div>
+						<div style="width: 40%; display: inline-block; font-size: 0.6em">
+							<p style="text-align: left; font-weight: bold;">
+								verbously describe a resource idetified by type and name
+							</p>
+						</div>
+					</div>
+					<div style="color: whitesmoke;" class="fragment">
+						<div style="width: 50%; display: inline-block; margin-right: 5%; vertical-align: top;">
+							<p style="text-align: left; font-weight: bold;">
+								<a href="https://kubernetes.io/docs/reference/kubectl/cheatsheet/">check out this cheat sheet for more awesomeness</a>
+							</p>
+						</div>
+						<div style="width: 40%; display: inline-block; font-size: 0.6em">
+							
+						</div>
+					</div>
+					
+				</section>
+				<section>
+					<div style="background-color: #D33682">
+						<h1>Let's</h1>
+						<h1>Recap</h1>
+					</div>
+				</section>
+				<section>
+					
+				</section>
+			</div>
+			
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+
+		<script>
+			Reveal.initialize({
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+				]
+			});
+		</script>
+	</body>
+</html>
