@@ -315,9 +315,9 @@ spec:
     image: polinux/stress
     resources:
       limits:
-      memory: "200Mi"
+        memory: "200Mi"
       requests:
-      memory: "100Mi"
+        memory: "100Mi"
     command: ["stress"]
     args:
     - "--vm"
@@ -337,6 +337,7 @@ spec:
 									<li class="fragment">within it, containers can reach each other via <code>localhost</code></li>
 									<li class="fragment">are scheduled on a single node</li>
 									<li class="fragment">processes can be executed in their context</li>
+									<li class="fragment">Pods are <em><b>IMMUTABLE</b></em></li>
 								</ul>
 							</p>
 						</div>
@@ -357,30 +358,27 @@ kind: Deployment
 metadata:
   name: nginx-deployment
   labels:
-  app: nginx
+    app: nginx
 spec:
   replicas: 3
-  selector:
-  matchLabels:
-    app: nginx
   template:
-  metadata:
-    labels:
-    app: nginx
-  spec:
-    containers:
-    - name: nginx
-	  image: nginx:1.7.9
-	  ports:
-      - containerPort: 80
-										
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+  	    image: nginx:1.7.9
+  	    ports:
+          - containerPort: 80
+  										
 							</code></pre>
 						</div>
 						<div style="grid-column-start: 2; grid-column-end: 2; text-align: left; font-size: 0.7em;">
 							<p>
 								<ul>
-									<li class="fragment">represents a set of similar pods that are created according to the <code>spec.tempalte</code> section</li>
-									<li class="fragment">they can be scaled up/down by adjusting <code>spec.replicas</code></li>
+									<li class="fragment">represents a set of similar pods that are created according to the <code>spec.template</code> section</li>
+									<li class="fragment">they can be scaled up/down by adjusting <code>spec.replicas</code> field</li>
 									<li class="fragment">can run rolling upgrades by shutting down old versions of pods and start new ones</li>
 									<li class="fragment">when pods matching a deployment die - they will be replaced</li>
 								</ul>
@@ -417,7 +415,7 @@ spec:
 								<ul>
 									<li class="fragment">connect applications via DNS</li>
 									<li class="fragment">they load-balance and proxy traffic to all pods matching the selector in <code>spec.selector</code></li>
-									<li class="fragment">come in three flavors: <code>ClusterIP</code, <code>LoadBalancer</code> or <code>NodePort</code></li>
+									<li class="fragment">come in three flavors: <code>ClusterIP</code>, <code>LoadBalancer</code> or <code>NodePort</code></li>
 									<li class="fragment">Cloud providers often tap into these entities to provide access through their firewalls & load balancers when type is set to <code>LoadBalancer</code>.</li>
 								</ul>
 							</p>
@@ -487,15 +485,14 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: k8s.gcr.io/nginx-slim:0.8
-        ports:
-        - containerPort: 80
-          name: web
+        image: nginx:0.8.3
         volumeMounts:
         - name: www
           mountPath: /usr/share/nginx/html
   volumeClaimTemplates:
-  - spec:
+  - metadata:
+      name: www
+    spec:
       accessModes: [ "ReadWriteOnce" ]
       storageClassName: "local-ssd"
       resources:
@@ -520,7 +517,7 @@ spec:
 						<div style="text-align: left; background-color: #66AF2A; width: 50000%; height: 10000%; position: absolute; top: -150%; left: 50%; opacity: 0.8; z-index: -1000;">
 						</div>
 						<div>
-							<h2 style="text-align: left">Stateful Sets</h2>
+							<h2 style="text-align: left">Daemon Sets</h2>
 						</div>
 						<div style="color: whitesmoke; display: grid; grid-template-columns: 50% 50%; grid-column-gap: 15px; height: 55%;">
 							<div style="grid-column-start: 1; grid-column-end: 1">
@@ -681,12 +678,9 @@ spec:
 				</section>
 				<section>
 					<div style="background-color: #D33682">
-						<h1>Let's</h1>
-						<h1>Recap</h1>
+						<h1>Let's get</h1>
+						<h1>Cracking</h1>
 					</div>
-				</section>
-				<section>
-					
 				</section>
 			</div>
 			

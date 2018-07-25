@@ -1,0 +1,4 @@
+Rendered Versions can be found here:
+ 1. [https://go-talks.appspot.com/github.com/enzian/articles/talks/orchestration/exercises/ex.1.slide](https://go-talks.appspot.com/github.com/enzian/articles/talks/orchestration/exercises/ex.1.slide)
+ 2. [https://go-talks.appspot.com/github.com/enzian/articles/talks/orchestration/exercises/ex.2.slide](https://go-talks.appspot.com/github.com/enzian/articles/talks/orchestration/exercises/ex.2.slide)
+ 3. [https://go-talks.appspot.com/github.com/enzian/articles/talks/orchestration/exercises/ex.3.slide](https://go-talks.appspot.com/github.com/enzian/articles/talks/orchestration/exercises/ex.3.slide)
