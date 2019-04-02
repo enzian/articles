@@ -1,0 +1,135 @@
+Nuget
+02 Apr 2019
+Tags: c#, dotnet, nuget, dependencies
+
+Michael Ingold
+Software Engineer, Leuchter AG
+michael.ingold@leuchterag.ch
+http://michaelingold.ch/
+@michaelingold
+
+
+* Agenda
+
+- NuGet Package Format
+- Versioning
+- Build Packages
+- Symbols & Sources
+- nuget tool installer
+
+* Nuget Package Format
+
+NuGet Packages are zipped archives and contain at least:
+  1. A .Nuspec file describing the packages metadata and dependencies.
+  2. A `lib` folder with a platform folder.
+
+The `lib`-folder can contain assemblies for multiple platforms addressed by their mnemonic:
+
+- netcoreapX.X
+- net4X
+- monoX
+
+* Nuget Package Format - Metadata
+
+  <?xml version="1.0"?>
+  <package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+      <metadata>
+          <id>Contoso.Utility.UsefulStuff</id>
+          <version>1.8.3-beta</version>
+          <authors>Dejana Tesic, Rajeev Dey</authors>
+          <owners>dejanatc, rjdey</owners>
+          <projectUrl>http://github.com/contoso/UsefulStuff</projectUrl>
+          <license type="expression">Apache-2.0</license>
+          <iconUrl>http://github.com/contoso/UsefulStuff/nuget_icon.png</iconUrl>
+          <requireLicenseAcceptance>false</requireLicenseAcceptance>
+          <releaseNotes>Bug fixes and performance improvements</releaseNotes>
+          <description>Core utility functions for web applications</description>
+          <copyright>Copyright ©2016 Contoso Corporation</copyright>
+          <tags>web utility http json url parsing</tags>
+          <dependencies>
+              <dependency id="Newtonsoft.Json" version="9.0" />
+          </dependencies>
+      </metadata>
+  </package>
+
+* Versioning
+
+NuGet Package must be versioned according to [[https://semver.org/][SemVer]] standards.
+
+- Major, Minor and Patch versions are mandatory
+- Additional labels are possible (alpha, beta, rc, etc.)
+
+  Attention the labels are string-sorted in most repositories and client implementations
+
+This means that `1.0.0-alpha1` is a newer version than `1.0.0-alpha11`, use leading 0s instead:
+
+*1.0.0-alpha001*
+*1.0.0-alpha011*
+
+* Build Packages
+
+Packages can be built in multiple ways:
+
+- Using the new msbuild project format, simply `dotnet` `pack`.
+All package metadata and dependencies necessary will be taken directly from the `.csproj` files no additional steps needed!
+
+- Using the legacy build system: Add a `.nuspec` file according to this [[https://docs.microsoft.com/en-us/nuget/create-packages/creating-a-package][msdn article]]
+
+All metadata and dependencies either have to be derived on every build: 
+
+  nuget spec <assembly-name>.dll
+
+or managed by hand!
+
+
+* Build Packages - TFS & Azure DevOps
+
+There are tasks available for building, and publishing nuget packages in both on premise TFS and Azure DevOps Build and Release Pipelines:
+
+.image release-task.png 250 _
+
+* Symbols & Sources
+
+The legacy build system must rely on `sourcelink` and/or Symbols and/or packages to ship code with nuget packages.
+
+The new build system can package symbols and/or sources into the assembly:
+
+.code es.csproj
+
+This enables the debugger to step-into when using the code from the nuget package.
+
+
+* Nuget Tool Installer
+
+Tools can be shipped with the newest .net core sdk:
+
+  nuget install -g dgcli
+  ./dgcli
+
+  You must specify at a subcommand.
+  Usage: dgctl [options] [command]
+
+  Options:
+    -?|-h|--help  Show help information
+
+  Commands:
+    functions    interact with function service
+    groups       Lists all permissions the user has
+    kafka        interact with kafka
+    login        Log into a docugate authority
+    permissions  Lists all permissions the user has
+
+  Use "dgctl [command] --help" for more information about a command.
+
+* Ex 1.
+
+We'll create an extension library for `FluentAssert` that enables us to assert that a given Guid is not empty:
+
+- Create a new solution (`FluentAssertions.Extensions.Guid`)
+- Create a src and test project (src/FluentAssertions.Extensions.Guid and test/FluentAssertions.Extensions.Guid.Tests)
+- Create a test that validates the new Extension method.
+- Implement an extenion method in `FluentAssertions.Extensions.Guid`
+- Add Packaging information to your .csproj *with* *your* *name* *as* *Suffix* (FluentAssertions.Extensions.Guid.KaLa)!
+- Build and inspect your package (`dotnet` `pack`)
+- Create a Build on TFS that builds and publishes your package
+- Create a Release that publishes this package to a dedicated package feed on our TFS!
