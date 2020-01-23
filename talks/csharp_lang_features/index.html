@@ -100,9 +100,127 @@
                 </section>
                 
 				<section id="title">
-                    |<h1>Topic 1</h1>|
+					|<h1>Topic 1</h1>|
                 </section>
-                
+				<section id="title">
+					<ul>
+						<li>Null-conditional operaters provide a short circuit to assign non nullable declared objects.</li>
+						<pre style="font-size: 0.4em; background: transparent;"><code class="cs" style="background: transparent; overflow: visible;" data-trim data-noescape>
+							var first = person?.FirstName;									
+														</code></pre>
+						<li>No NullReferenceException will be thrown!</li>
+					</ul>
+					<ul>
+						<li>The null-conditional operators also work on delegates invoke methode</li>
+						<pre style="font-size: 0.4em; background: transparent;"><code class="cs" style="background: transparent; overflow: visible;" data-trim data-noescape>
+							this.SomethingHappened?.Invoke(this.eventargs);									
+														</code></pre>
+						
+						<li>Null-coalescing assign a the left hand value if it is not null, else the right hand value will be assigned.</li>
+						<pre style="font-size: 0.4em; background: transparent;"><code class="cs" style="background: transparent; overflow: visible;" data-trim data-noescape>
+							 first = person?.FirstName ?? "unspecified";								
+														</code></pre>
+
+					</ul>
+				</section>
+				<section id="title">
+					<ul>
+						<li>String interpolation enable embedded expressions in a string</li>
+						<pre style="font-size: 0.4em; background: transparent;"><code class="cs" style="background: transparent; overflow: visible;" data-trim data-noescape>
+							public string GetGradePointPercentage() => $"Name: {LastName}, {FirstName}. G.P.A: {Grades.Average():F2}";								
+														</code></pre>
+						<br/>
+						<li>Enhancement of interpolated verbatim strings means that the order of $ and @ doesn't matter  </li>
+							<pre style="font-size: 0.4em; background: transparent;"><code class="cs" style="background: transparent; overflow: visible;" data-trim data-noescape>
+								$@"..."
+								@$"..."														
+							</code></pre> are booth valid interpolated verbatim strings.
+							Verbatim string:
+							<pre style="font-size: 0.4em; background: transparent;"><code class="cs" style="background: transparent; overflow: visible;" data-trim data-noescape>
+								string filename1 = @"c:\documents\files\u0066.txt";
+							</code></pre>
+
+						</ul>
+				</section>
+				<section id="title">
+						'out' parameters are improved in c# 7.0
+						It is not longer neccesary to declare the out paramter earlier in code.
+						You can now declare the out variale where you use it.						
+					<pre style="font-size: 0.4em; background: transparent;"><code class="cs" style="background: transparent; overflow: visible;" data-trim data-noescape>
+							if (int.TryParse(inut, out int result))
+								Console.WriteLine(result);
+							else
+								Console.WriteLine("Could not parse input");
+					</code></pre>
+				</section>
+				<section>
+					<pre style="font-size: 0.4em; background: transparent;"><code class="cs" style="background: transparent; overflow: visible;" data-trim data-noescape>
+							///Die neue Syntax unterstützt Zuweisungen mit einem Index in die Auflistung:
+
+ 
+
+							private Dictionary<int, string> messages = new Dictionary<int, string>
+							{
+								{ 404, "Page not Found"},
+								{ 302, "Page moved, but left a forwarding address."},
+								{ 500, "The web server can't come out to play today."}
+							};
+							
+							 
+							
+							 
+							
+							Task.Run(Func<Task>())						</code></pre>
+				</section>
+				<section>
+						<pre style="font-size: 0.4em; background: transparent;"><code class="cs" style="background: transparent; overflow: visible;" data-trim data-noescape>
+							/// <summary>
+							/// Many members that you write are single statements that could be single expressions. 
+							/// Write an expression-bodied member instead. It works for methods and read-only 
+							/// properties. For example, an override of ToString() is often a great candidate
+							/// </summary>
+							public static string ExpressionBodiedFunction => $"Variable {nameof(test)} ist kein Integer";
+						</code></pre>
+				</section>
+				<section>
+						<pre style="font-size: 0.4em; background: transparent;"><code class="cs" style="background: transparent; overflow: visible;" data-trim data-noescape>
+								var test = "ab";
+								try
+								{
+									
+									int param = Convert.ToInt32(test);
+					
+									Console.WriteLine(param);
+					
+								}
+								///Ausnahmefilter sind Klauseln, die festlegen, wann eine bestimmte Catch-Klausel angewendet werden muss. 
+								///Wenn der für einen Ausnahmefilter verwendete Ausdruck true ergibt, führt die Catch-Klausel die 
+								///normale Verarbeitung auf einer Ausnahme durch. 
+								///Wenn der Ausdruck false ergibt, wird die catch-Klausel übersprungen. 
+								///Eine Verwendung ist, Informationen über eine Ausnehme zu untersuchen, um zu bestimmen, 
+								///ob eine catch-Klausel die Ausnahme verarbeiten kann.
+								///Sie können mit C# 6 auch await in catch- oder finally-Ausdrücken verwenden.
+								catch (Exception e) when (e.Message.Contains("Input string was not in a correct format."))
+								{
+									Console.WriteLine(ExpressionBodiedFunction);
+					
+									Console.ReadLine();
+								}
+							</code></pre>
+				</section>
+				<section>
+						<pre style="font-size: 0.4em; background: transparent;"><code class="cs" style="background: transparent; overflow: visible;" data-trim data-noescape>
+							///Der Ausdruck nameof wird zum Namen eines Symbols ausgewertet. 
+							///Es ist eine hervorragende Möglichkeit, Tools zum Arbeiten zu bringen, 
+							///wenn Sie den Namen einer Variable, Eigenschaften oder eines Memberfelds benötigen. 
+							///Eine der häufigsten Verwendungszwecke für nameof besteht darin, den Namen eines Symbols bereitzustellen, die eine Ausnahme ausgelöst hat:
+							Console.WriteLine(ExpressionBodiedFunction);
+			
+							Console.WriteLine($"Methode {nameof(Convert.ToInt32)}");
+							Console.ReadLine();
+						</code></pre>
+				</section>
+
 				<section id="title">
                     |<h1>Topic 2</h1>|
                 </section>
