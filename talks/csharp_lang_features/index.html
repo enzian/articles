@@ -105,7 +105,223 @@
                 
 				<section id="title">
                     |<h1>Topic 2</h1>|
-                </section>
+				</section>
+
+				<section>
+					<h2>Tuples</h2>
+					<ul>
+						<li>Lightweight data structures with multiple fields.</li>
+					</ul>
+					<div style="grid-column-start: 1; grid-column-end: 1">
+						<pre style="font-size: 0.4em; background: transparent;">
+							<code class="csharp" style="background: transparent; overflow: visible;" data-trim data-noescape>
+public (List<string> list, string message) GetList()
+{
+	return (new List<string>(),  "error");
+}
+
+(List<string> list, string message) = GetList();
+(List<string> list, string message) valueTuple = GetList();
+							</code>
+						</pre>
+					</div>
+				</section>
+
+				<section>
+					<h2>Inferred tuple element names</h2>
+					<div style="grid-column-start: 1; grid-column-end: 1">
+						<pre style="font-size: 0.4em; background: transparent;">
+							<code class="csharp" style="background: transparent; overflow: visible;" data-trim data-noescape>
+var tuple = GetList();
+List<string> aList = tuple.list;
+string msg = tuple.message;
+							</code>
+						</pre>
+					</div>
+				</section>
+
+				<section>
+					<h2>Discards</h2>
+					<ul>
+						<il>A discard is a write-only variable whose name is _ you can assign all of the values that you intend to discard to the single variable.</il>
+					</ul>
+					<div style="grid-column-start: 1; grid-column-end: 1">
+						<pre style="font-size: 0.4em; background: transparent;">
+							<code class="csharp" style="background: transparent; overflow: visible;" data-trim data-noescape>
+(_, string message) = GetList();
+							</code>
+						</pre>
+					</div>
+				</section>
+				
+				<section>
+					<h2>Numeric literal syntax improvements</h2>
+					<div style="grid-column-start: 1; grid-column-end: 1">
+						<pre style="font-size: 0.4em; background: transparent;">
+							<code class="csharp" style="background: transparent; overflow: visible;" data-trim data-noescape>
+public const int SixtyFour = 0b0100_0000;
+
+public const long BillionsAndBillions = 100_000_000_000;
+
+public const double AvogadroConstant = 6.022_140_857_747_474e23;
+							</code>
+						</pre>
+					</div>
+
+					
+				</section>
+
+				<section>
+					<h2>Local Functions</h2>
+					<ul>
+						<li>Function inside a method</li>
+						<li>Instead of private methods</li>
+						<li>Two main use cases</li>
+							<ul>
+								<li>Public iterator methods</li>
+								<li>Public async methods</li>
+							</ul>
+						</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Local Functions</h2>
+					<div style="grid-column-start: 1; grid-column-end: 1">
+						<pre style="font-size: 0.4em; background: transparent;">
+							<code class="csharp" style="background: transparent; overflow: visible;" data-trim data-noescape>
+public static IEnumerable<char> AlphabetSubset3(char start, char end)
+{
+    if (start < 'a' || start > 'z')
+        throw new ArgumentOutOfRangeException(paramName: nameof(start), message: "start must be a letter");
+    if (end < 'a' || end > 'z')
+        throw new ArgumentOutOfRangeException(paramName: nameof(end), message: "end must be a letter");
+
+    if (end <= start)
+        throw new ArgumentException($"{nameof(end)} must be greater than {nameof(start)}");
+
+    return alphabetSubsetImplementation();
+
+    IEnumerable<char> alphabetSubsetImplementation()
+    {
+        for (var c = start; c < end; c++)
+            yield return c;
+    }
+}
+							</code>
+						</pre>
+					</div>
+				</section>
+
+				<section>
+					<h2>Local Functions</h2>
+					<div style="grid-column-start: 1; grid-column-end: 1">
+						<pre style="font-size: 0.4em; background: transparent;">
+							<code class="csharp" style="background: transparent; overflow: visible;" data-trim data-noescape>
+public Task<string> PerformLongRunningWork(string address, int index, string name)
+{
+    if (string.IsNullOrWhiteSpace(address))
+        throw new ArgumentException(message: "An address is required", paramName: nameof(address));
+    if (index < 0)
+        throw new ArgumentOutOfRangeException(paramName: nameof(index), message: "The index must be non-negative");
+    if (string.IsNullOrWhiteSpace(name))
+        throw new ArgumentException(message: "You must supply a name", paramName: nameof(name));
+
+    return longRunningWorkImplementation();
+
+    async Task<string> longRunningWorkImplementation()
+    {
+        var interimResult = await FirstWork(address);
+        var secondResult = await SecondStep(index, name);
+        return $"The results are {interimResult} and {secondResult}. Enjoy.";
+    }
+}
+
+							</code>
+						</pre>
+					</div>
+				</section>
+
+				<section>
+					<h2>Async streams</h2>
+					<ul>
+						<li>Asynchronously return elements from a IEnumberable.</li>
+						<li>Three properties:</li>
+						<li>
+							<ul>
+								<li>It's declared with the async modifier</li>
+								<li>It returns an IAsyncEnumerable<T>.</li>
+								<li>The method contains yield return statements to return successive elements in the asynchronous stream.</li>
+							</ul>
+						</li>
+					</ul>
+				</section>
+					
+
+				<section>
+					<h2>Async streams</h2>
+					<div style="grid-column-start: 1; grid-column-end: 1">
+						<pre style="font-size: 0.4em; background: transparent;">
+							<code class="csharp" style="background: transparent; overflow: visible;" data-trim data-noescape>
+public static async System.Collections.Generic.IAsyncEnumerable<int> GenerateSequence()
+{
+    for (int i = 0; i < 20; i++)
+    {
+        await Task.Delay(100);
+        yield return i;
+    }
+}
+
+await foreach (var number in GenerateSequence())
+{
+    Console.WriteLine(number);
+}
+							</code>
+						</pre>
+					</div>
+					
+				</section>
+				
+				<section>
+					<h2>Default literal expressions</h2>
+					<ul>
+						<li>Default literal expressions are an enhancement to default value expressions. These expressions initialize a variable to the default value.</li>
+					</ul>
+					<div style="grid-column-start: 1; grid-column-end: 1">
+						<pre style="font-size: 0.4em; background: transparent;">
+							<code class="csharp" style="background: transparent; overflow: visible;" data-trim data-noescape>
+Before: 
+	Func<string, bool> whereClause = default(Func&lt;string, bool&gt;);
+								
+After:
+	Func<string, bool> whereClause = default;
+							</code>
+						</pre>
+					</div>
+				</section>
+
+				<section>
+					<h2>Readonly members</h2>
+					<ul>
+						<li>Struct can have readonly members without being readonly itself.</li>
+					</ul>
+					<div style="grid-column-start: 1; grid-column-end: 1">
+						<pre style="font-size: 0.4em; background: transparent;">
+							<code class="csharp" style="background: transparent; overflow: visible;" data-trim data-noescape>
+public struct Point
+{
+    public double X { get; set; }
+    public double Y { get; set; }
+    public readonly double Distance => Math.Sqrt(X * X + Y * Y);
+
+    public readonly override string ToString() =>
+        $"({X}, {Y}) is {Distance} from the origin";
+}
+							</code>
+						</pre>
+					</div>
+				</section>
+
                 
 				<section id="title">
                     |<h1>Topic 3</h1>|
