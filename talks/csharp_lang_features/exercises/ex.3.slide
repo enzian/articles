@@ -1,0 +1,22 @@
+Stateful Applications Ex.3
+Deploy Cassandra on Kubernetes
+15:04 23 Jul 2018
+Tags: containers, kubernetes, os-virt, docker, statefulset
+
+Michael Ingold
+Software Engineer, Leuchter AG
+michael.ingold@leuchterag.ch
+http://michaelingold.ch/
+@michaelingold
+
+
+* Ex. 3
+
+* Prerequisites
+
+- Your own Kubernetes cluster from Ex 1.
+- and a working kubectl configuration.
+
+* Deploy Cassandra
+
+Follow the [[https://kubernetes.io/docs/tutorials/stateful-application/cassandra/][Kubernetes Guide]] to install a scalable distributed cluster of the multi-purpose database Cassandra.
