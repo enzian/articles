@@ -108,8 +108,249 @@
                 </section>
                 
 				<section id="title">
+
                     |<h1>Topic 3</h1>|
-                </section>
+				</section>
+				
+				<section data-markdown>
+
+					<textarea data-template>
+
+					## Pattern matching (1)
+
+					Remember casting?
+
+					```cs
+					IFruit fruit = new Apple() {Color = Color.Green};
+					var apple = (Apple)fruit;
+					```
+
+					And safe casting?
+
+					```cs
+					var apple as Apple;
+					if (apple != null) {...}
+					```
+					</textarea>
+				</section>
+				<section data-markdown>
+					<textarea data-template>
+						## Pattern matching (2)
+
+						Let me remind you of `switch` statements:
+
+						```cs
+						switch (currency){
+							case Currency.Euro:
+								...
+								break;
+							case Currency.Pounds:
+								...
+								break;
+						}
+						```
+					</textarea>
+				</section>
+				<section data-markdown>
+					<textarea data-template>
+						## Pattern matching (3)
+
+						Combine the two together!
+
+						Introducing a new way to match patterns.
+
+						```cs
+						IFruit fruit = new Apple()
+						switch(fruit){
+							case Apple apple:
+								if (apple.Color == Color.Green){
+									MakePieFrom(apple);
+								}
+								else if (apple.Color == Color.Brown){
+									ThrowAway(apple);
+								}
+								break;
+						}
+						```
+					</textarea>
+				</section>
+				<section data-markdown>
+
+
+					<textarea data-template>
+						## Pattern matching (4)
+
+						We can achieve the same using even less code!
+
+						```cs
+						 switch (fruit)
+						{
+							case Apple apple when apple.Color == Color.Green:
+								MakePieFrom(apple);
+								break;
+							case Apple apple when apple.Color == Color.Brown:
+								ThrowAway(apple);
+								break;
+
+						}
+						```
+					</textarea>
+				</section>
+				<section data-markdown>
+					<textarea data-template>
+						## Matching tuples:
+
+						For lack of a better example.
+
+						```cs
+						var x = (32, "hello", 100d);
+						var u = x switch
+						{
+							(32, "hello", 100d) => "happy case",
+							(00, "oh no", 0d) => "frustration"
+						};
+						```
+					</textarea>
+				</section>
+				<section data-markdown>
+
+					<textarea data-template>
+						## C# 8.0 Pattern matching
+
+						Focus on the `Deconstruct()` method.
+
+						```cs
+						abstract class Shape
+						{
+							public Point Point { get; set; }
+						}
+
+						class Rectangle : Shape
+						{
+							public int Width { get; set; }
+							public int Height { get; set; }
+							public void Deconstruct(out int width, out int height, out Point point)
+							{
+								width = Width;
+								height = Height;
+								point = Point;
+							}
+						}
+						```
+					</textarea>
+				</section>
+				<section data-markdown>
+
+					<textarea data-template>
+						## Pattern matching with tuples:
+
+						```cs
+						Shape shape = new Rectangle
+						{
+							Width = 100,
+							Height = 100,
+							Point = new Point { X = 0, Y = 100 }
+						};
+
+						var result = shape switch
+						{
+							Rectangle (100, 100, null) => "Found 100x100 rectangle without a point",
+							Rectangle (100, 100, _) => "Found 100x100 rectangle",
+							_ => "Different, or null shape"
+						};
+						```
+					</textarea>
+
+				</section>
+				<section data-markdown>
+
+					<textarea data-template>
+						## Matching by properties:
+
+						```cs
+						var x = shape switch
+						{
+							{ Point: { Y: 100 } p } => $"Y is (${p.X},{p.Y})",
+							{ Point: null } => "Point not initialized",
+							{ Point: _ } => "It is not even a point"
+						};
+						```
+					</textarea>
+				</section>
+				<section data-markdown>
+
+					<textarea data-template>
+						## Ranges And Indices 
+
+						```cs
+						var words = new string[]
+						{
+										// index from start    index from end
+							"The",      // 0                   ^9
+							"quick",    // 1                   ^8
+							"brown",    // 2                   ^7
+							"fox",      // 3                   ^6
+							"jumped",   // 4                   ^5
+							"over",     // 5                   ^4
+							"the",      // 6                   ^3
+							"lazy",     // 7                   ^2
+							"dog"       // 8                   ^1
+						};              // 9 (or words.Length) ^0
+						```
+					</textarea>
+				</section>
+				<section data-markdown>
+
+					<textarea data-template>
+						Known way - address directly:
+
+						```cs
+						var firstWord = words[0];
+						```
+
+						Retrieve last word:
+
+						```cs
+						Console.WriteLine($"The last word is {words[^1]}");
+						// writes "dog"
+						```
+
+						Retrieve range of words:
+
+						```cs
+						var quickBrownFox = words[1..4];
+						```
+					</textarea>
+				</section>
+				<section data-markdown>
+
+					<textarea data-template>
+						## Ranges
+
+						```cs
+						var myRange = words.ToList().GetRange(1, 5);
+
+						foreach (var w in words[1..5])
+						{
+							Console.WriteLine(w);
+						}
+						```
+				</textarea>
+				</section>
+				<section data-markdown>
+					<textarea data-template>
+						## Ranges - What does not work?
+
+						Keep in mind, this is not Python! ☺
+
+						```cs
+						foreach (var w in 1..5)
+						{
+							Console.WriteLine(w);
+						}
+						```
+					</textarea>
+				</section>
 			</div>
 			
 		</div>
